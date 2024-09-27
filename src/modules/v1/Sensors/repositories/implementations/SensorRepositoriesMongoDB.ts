@@ -7,9 +7,10 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
     await SensorSchema.create(body);
   }
 
-  async findByUserId(user_id: string): Promise<Sensor | null> {
-    const sensor = await SensorSchema.findOne({ user_id });
-    return sensor;
+  async findByUserId(user_id: string): Promise<Sensor[] | null> {
+    const sensors = await SensorSchema.find({ user_id }).select("-__v").lean();
+
+    return sensors.length ? (sensors as Sensor[]) : null;
   }
 
   async findById(id: string): Promise<Sensor | null> {
