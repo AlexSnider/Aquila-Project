@@ -10,7 +10,9 @@ export class CreateService {
   ) {}
 
   async execute(body: Sensor): Promise<void> {
-    const sensorExists = await this.sensorRepository.findByUserId(body.user_id || "");
+    const sensorExists = await this.sensorRepository.findById(
+      body._id as unknown as string
+    );
 
     if (sensorExists) {
       throw new Error("Sensor already exists");
