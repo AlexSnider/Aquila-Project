@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { ISensorRepositories } from "../../repositories/ISensorRepositories";
+import { NotFoundError } from "../../../../../helpers/errors/apiErrors";
 
 @injectable()
 export class DeleteService {
@@ -12,7 +13,7 @@ export class DeleteService {
     const sensor = await this.sensorRepository.findById(id);
 
     if (!sensor) {
-      throw new Error("No sensor found");
+      throw new NotFoundError("Sensor not found");
     }
 
     await this.sensorRepository.delete(id);
