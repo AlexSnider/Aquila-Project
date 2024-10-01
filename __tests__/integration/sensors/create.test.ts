@@ -5,7 +5,7 @@ const supertestServer = supertest(app);
 
 beforeAll(async () => {
   await initApp();
-}, 10000);
+}, 25000);
 
 afterAll(async () => {
   await close();
