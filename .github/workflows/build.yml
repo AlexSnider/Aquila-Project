@@ -3,8 +3,8 @@ name: Aquila Build
 on:
   push:
     branches:
-      - develop/*
-      - release/*
+      - develop
+      - release
 
 jobs:
   build:
