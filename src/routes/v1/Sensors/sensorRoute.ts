@@ -6,13 +6,19 @@ import findByIdController from "../../../modules/v1/Sensors/useCases/findById/fi
 import updateSensorController from "../../../modules/v1/Sensors/useCases/update/updateSensor.controller";
 import deleteSensorController from "../../../modules/v1/Sensors/useCases/delete/deleteSensor.controller";
 import findByUserIdController from "../../../modules/v1/Sensors/useCases/findByUserId/findByUserId.controller";
+import validadeSchema from "../../../middleware/schemaValidationMiddleware";
+import { SensorSchemaJoi } from "../../../modules/v1/Sensors/schemas/joi/SensorSchemajoi";
 
 const sensorRoutes = Router();
 
-sensorRoutes.post("/", createController.handle);
+sensorRoutes.post(
+  "/",
+  validadeSchema.execute(SensorSchemaJoi),
+  createController.handle
+);
 sensorRoutes.get("/", paginationMiddleware.execute, findAllController.handle);
-sensorRoutes.get("/find-sensor/:id", findByIdController.handle);
-sensorRoutes.get("/user-sensors/:id", findByUserIdController.handle);
+sensorRoutes.get("/sensors/:id", findByIdController.handle);
+sensorRoutes.get("/users-sensors/:id", findByUserIdController.handle);
 sensorRoutes.patch("/update/:id", updateSensorController.handle);
 sensorRoutes.delete("/delete/:id", deleteSensorController.handle);
 
