@@ -1,0 +1,58 @@
+name: Aquila Build
+
+on:
+  push:
+    branches:
+      - develop
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10.8-dind
+        options: --privileged
+        ports:
+          - 2375:2375
+        env:
+          DOCKER_TLS_CERTDIR: ""
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Docker
+        run: |
+          docker info
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Build Docker image
+        run: docker build -t alexvoliveira/aquila:${{ github.sha }} .
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push Docker image with commit SHA
+        run: docker push alexvoliveira/aquila:${{ github.sha }}
+
+      - name: Tag Docker image with SHA-256 hash
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          hash=$(tar -c . | sha256sum | awk '{ print $1 }')
+          docker tag alexvoliveira/aquila:${{ github.sha }} alexvoliveira/aquila:${hash}
+          docker push alexvoliveira/aquila:${hash}
