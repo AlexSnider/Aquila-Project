@@ -13,8 +13,8 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
     return sensors.length ? (sensors as Sensor[]) : null;
   }
 
-  async findById(id: string): Promise<Sensor | null> {
-    const sensor = await SensorSchema.findById(id).select("-__v");
+  async findByName(sensor_name: string): Promise<Sensor | null> {
+    const sensor = await SensorSchema.findOne({ sensor_name }).select("-__v");
     return sensor;
   }
 
@@ -24,6 +24,14 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
       .limit(limit)
       .skip(offset);
     return sensors;
+  }
+
+  async findById(id: string): Promise<Sensor> {
+    const sensor = await SensorSchema.findById(id).select("-__v");
+    if (!sensor) {
+      throw new Error("Sensor not found");
+    }
+    return sensor;
   }
 
   async update(id: string, data: Sensor): Promise<void> {

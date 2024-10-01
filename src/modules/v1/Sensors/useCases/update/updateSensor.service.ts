@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { ISensorRepositories } from "../../repositories/ISensorRepositories";
+import { NotFoundError } from "../../../../../helpers/errors/apiErrors";
 
 interface IUpdateSensorDTO {
   sensor_name: string;
@@ -16,7 +17,7 @@ export class UpdateService {
   async execute(_id: string, data: Partial<IUpdateSensorDTO>): Promise<void> {
     const sensorExists = await this.sensorRepository.findById(_id);
     if (!sensorExists) {
-      throw new Error("Sensor not found");
+      throw new NotFoundError("Sensor not found");
     }
 
     const { sensor_name, coordinates } = data;
