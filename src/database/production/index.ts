@@ -12,6 +12,10 @@ class ConnectToDatabase {
       console.log(error);
     }
   }
+
+  async disconnect() {
+    await mongoose.disconnect();
+  }
 }
 
 export default new ConnectToDatabase();
