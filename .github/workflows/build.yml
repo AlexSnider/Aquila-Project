@@ -1,11 +1,3 @@
-name: Aquila Build
-
-on:
-  push:
-    branches:
-      - develop
-      - release
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,12 +23,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Set up Docker
-        run: |
-          docker info
-
-      - name: Run tests
+      - name: Run integration tests
         run: npm run test
+        name: Run Integration Tests
 
       - name: Build Docker image
         run: docker build -t alexvoliveira/aquila:${{ github.sha }} .
