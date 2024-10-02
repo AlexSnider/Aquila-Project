@@ -1,3 +1,11 @@
+name: Aquila Build
+
+on:
+  push:
+    branches:
+      - develop
+      - release
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run integration tests
+      - name: Set up Docker
+        run: |
+          docker info
+
+      - name: Run tests
         run: npm run test
         name: Run Integration Tests
 
