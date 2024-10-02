@@ -15,8 +15,7 @@ services:
     networks:
       - app-network
   app:
-    build:
-      context: .
+    image: alexvoliveira/aquila:45351186478a3169837eea655b2a7112904c28e3
     container_name: app-aquila
     ports:
       - "3005:3005"
