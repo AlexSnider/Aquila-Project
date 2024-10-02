@@ -5,7 +5,7 @@ export const SensorSchemaJoi = joi.object({
 
   user_id: joi.string().required(),
 
-  coordinates: joi.array().items(joi.number()).required(),
+  coordinates: joi.array().items(joi.number(), joi.number()).required(),
 
   createdAt: joi.date(),
 
