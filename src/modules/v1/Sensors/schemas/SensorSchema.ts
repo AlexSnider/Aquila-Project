@@ -12,7 +12,7 @@ const SensorSchema = new Schema<Sensor>(
       required: [true, "user_id is required on sensor creation"],
     },
     coordinates: {
-      type: [Number],
+      type: [Number, Number],
       required: true,
     },
     createdAt: {
