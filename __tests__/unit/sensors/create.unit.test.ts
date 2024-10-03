@@ -1,4 +1,3 @@
-import { newSensor } from "__tests__/factories/sensor.factories";
 import "reflect-metadata";
 import { Sensor } from "src/modules/v1/Sensors/entities/Sensor";
 import { ISensorRepositories } from "src/modules/v1/Sensors/repositories/ISensorRepositories";
@@ -28,7 +27,11 @@ describe("Create Sensor", () => {
   it("should create a sensor if it does not already exist", async () => {
     mockSensorRepository.findByName.mockResolvedValueOnce(null);
 
-    const sensorData = newSensor() as Sensor;
+    const sensorData = {
+      sensor_name: "test",
+      user_id: "1",
+      coordinates: [6534.65, 2456.37],
+    } as Sensor;
 
     await createService.execute(sensorData);
 
