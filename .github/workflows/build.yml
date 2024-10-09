@@ -35,9 +35,8 @@ jobs:
         run: |
           docker info
 
-      - name: Run tests
+      - name: Run Integration Tests
         run: npm run test
-        name: Run Integration Tests
 
       - name: Build Docker image
         run: docker build -t alexvoliveira/aquila:${{ github.sha }} .
