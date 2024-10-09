@@ -12,9 +12,9 @@ export class Sensor {
     sensor_name?: string,
     user_id?: string,
     coordinates?: [number, number],
-    id?: ObjectId
+    _id?: ObjectId
   ) {
-    this._id = id;
+    this._id = _id;
     this.sensor_name = sensor_name;
     this.user_id = user_id;
     this.coordinates = coordinates;
