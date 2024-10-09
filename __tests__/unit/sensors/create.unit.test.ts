@@ -1,6 +1,5 @@
 import { newSensor } from "__tests__/factories/sensor.factories";
 import "reflect-metadata";
-import { Sensor } from "src/modules/v1/Sensors/entities/Sensor";
 import { ISensorRepositories } from "src/modules/v1/Sensors/repositories/ISensorRepositories";
 import { CreateService } from "src/modules/v1/Sensors/useCases/create/create.service";
 
@@ -28,11 +27,15 @@ describe("Create Sensor", () => {
   it("should create a sensor if it does not already exist", async () => {
     mockSensorRepository.findByName.mockResolvedValueOnce(null);
 
-    const sensorData = newSensor() as Sensor;
+    const sensorData = newSensor();
 
     await createService.execute(sensorData);
 
-    expect(mockSensorRepository.findByName).toHaveBeenCalledWith("test");
+    expect(mockSensorRepository.findByName).toHaveBeenCalledWith(
+      sensorData.sensor_name
+    );
     expect(mockSensorRepository.create).toHaveBeenCalledWith(sensorData);
+    expect(Array.isArray(sensorData.coordinates)).toBe(true);
+    expect(sensorData.coordinates.length).toBe(2);
   });
 });
