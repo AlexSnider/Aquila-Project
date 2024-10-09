@@ -10,7 +10,7 @@ export class CreateService {
     private sensorRepository: ISensorRepositories
   ) {}
 
-  async execute(body: Sensor): Promise<void> {
+  async execute(body: Sensor): Promise<Sensor> {
     const sensorExists = await this.sensorRepository.findByName(
       body.sensor_name as string
     );
@@ -20,5 +20,6 @@ export class CreateService {
     }
 
     await this.sensorRepository.create(body);
+    return body;
   }
 }
