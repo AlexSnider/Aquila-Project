@@ -25,6 +25,11 @@ describe("Sensor Creation", () => {
     const result = await supertestServer.post("/sensors").send(sensor);
 
     expect(result.statusCode).toBe(201);
+    expect(result.body).toHaveProperty("sensor_name");
+    expect(result.body).toHaveProperty("user_id");
+    expect(result.body).toHaveProperty("coordinates");
+    expect(Array.isArray(result.body.coordinates)).toBe(true);
+    expect(result.body.coordinates.length).toBe(2);
   });
 
   it("should fail when coordinates are not an array of two numbers and return status 409", async () => {
