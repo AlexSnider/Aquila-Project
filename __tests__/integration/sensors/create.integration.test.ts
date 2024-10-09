@@ -13,7 +13,7 @@ const supertestServer = supertest(app);
 
 beforeAll(async () => {
   await initApp();
-}), 15000;
+}, 15000);
 
 afterAll(async () => {
   await close();
