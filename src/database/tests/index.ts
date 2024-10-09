@@ -17,9 +17,9 @@ class ConnectToTestDatabase {
 
       await mongoose.connect(mongoUrl);
 
-      console.log(`MongoDB connected at tests database on URL: ${mongoUrl}`);
+      console.log(`MongoDB tests connected`);
     } catch (error: any) {
-      console.log("Error connecting to MongoDB:", error);
+      console.log("Error connecting to test MongoDB:", error);
     }
   }
 

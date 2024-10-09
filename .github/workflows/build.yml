@@ -37,6 +37,7 @@ jobs:
 
       - name: Run tests
         run: npm run test
+        name: Run Integration Tests
 
       - name: Build Docker image
         run: docker build -t alexvoliveira/aquila:${{ github.sha }} .

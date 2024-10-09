@@ -3,8 +3,9 @@ import { ISensorRepositories } from "../ISensorRepositories";
 import SensorSchema from "../../schemas/SensorSchema";
 
 export class SensorRepositoriesMongoDB implements ISensorRepositories {
-  async create(body: Sensor): Promise<void> {
+  async create(body: Sensor): Promise<Sensor> {
     await SensorSchema.create(body);
+    return body;
   }
 
   async findByUserId(user_id: string): Promise<Sensor[] | null> {
