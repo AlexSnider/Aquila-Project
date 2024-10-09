@@ -1,18 +1,23 @@
 import { faker } from "@faker-js/faker";
 
+const sensor_name = faker.word.sample(5);
+
 export function newSensor() {
   return {
-    sensor_name: "test",
-    user_id: faker.number.hex({ min: 10, max: 15 }),
+    sensor_name: sensor_name,
+    user_id: faker.string.uuid(),
     coordinates: [
-      faker.number.float({ min: 4, max: 6 }),
-      faker.number.float({ min: 4, max: 6 }),
-    ],
+      Number(faker.number.float().toFixed(4)),
+      Number(faker.number.float().toFixed(4)),
+    ] as [number, number],
   };
 }
 
 export function newInvalidSensorCoordinate() {
-  return { ...newSensor(), coordinates: [34.65, faker.word.sample(4) || null] };
+  return {
+    ...newSensor(),
+    coordinates: [faker.number.float().toFixed(4), faker.word.sample(5)],
+  };
 }
 
 export function newInvalidSensorSchema() {
@@ -21,7 +26,7 @@ export function newInvalidSensorSchema() {
 }
 
 export function newInvalidSensorName() {
-  return { ...newSensor(), sensor_name: faker.number.int({ min: 5, max: 6 }) };
+  return { ...newSensor(), sensor_name: faker.number.int().toFixed(4) };
 }
 
 export function newInvalidSensorBlankField() {
@@ -29,5 +34,5 @@ export function newInvalidSensorBlankField() {
 }
 
 export function newInvalidSensorExistingName() {
-  return { ...newSensor(), sensor_name: "test" };
+  return { ...newSensor(), sensor_name: sensor_name };
 }
