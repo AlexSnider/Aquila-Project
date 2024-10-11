@@ -17,7 +17,7 @@ sensorRoutes.post(
   createController.handle
 );
 sensorRoutes.get("/", paginationMiddleware.execute, findAllController.handle);
-sensorRoutes.get("/sensors/:id", findByIdController.handle);
+sensorRoutes.get("/:id", findByIdController.handle);
 sensorRoutes.get("/users-sensors/:id", findByUserIdController.handle);
 sensorRoutes.patch("/update/:id", updateSensorController.handle);
 sensorRoutes.delete("/delete/:id", deleteSensorController.handle);
