@@ -29,6 +29,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
 
   async findById(id: string): Promise<Sensor> {
     const sensor = await SensorSchema.findById(id).select("-__v");
+
     if (!sensor) {
       throw new Error("Sensor not found");
     }
