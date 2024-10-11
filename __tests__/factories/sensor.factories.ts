@@ -1,16 +1,31 @@
+import SensorSchema from "src/modules/v1/Sensors/schemas/SensorSchema";
 import { faker } from "@faker-js/faker";
+import { Types } from "mongoose";
 
-const sensor_name = faker.word.sample(5);
+const sensor_name = faker.word.sample(6);
 
 export function newSensor() {
   return {
+    _id: new Types.ObjectId(),
     sensor_name: sensor_name,
     user_id: faker.string.uuid(),
     coordinates: [
       Number(faker.number.float().toFixed(4)),
       Number(faker.number.float().toFixed(4)),
-    ] as [number, number],
+    ] as [Number, Number],
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
+}
+
+export function newRandomSensorId() {
+  return new Types.ObjectId();
+}
+
+export async function newCreateSensor() {
+  const sensor = newSensor();
+  const sensorDb = await SensorSchema.create(sensor);
+  return sensorDb;
 }
 
 export function newInvalidSensorCoordinate() {
