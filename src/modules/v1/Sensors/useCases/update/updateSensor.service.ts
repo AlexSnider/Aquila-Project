@@ -1,10 +1,15 @@
 import { inject, injectable } from "tsyringe";
 import { ISensorRepositories } from "../../repositories/ISensorRepositories";
 import { NotFoundError } from "../../../../../helpers/errors/apiErrors";
+import { Types } from "mongoose";
 
 interface IUpdateSensorDTO {
+  _id: Types.ObjectId;
   sensor_name: string;
-  coordinates: [number, number];
+  coordinates: [Number, Number];
+  user_id: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 @injectable()
@@ -16,6 +21,7 @@ export class UpdateService {
 
   async execute(_id: string, data: Partial<IUpdateSensorDTO>): Promise<void> {
     const sensorExists = await this.sensorRepository.findById(_id);
+
     if (!sensorExists) {
       throw new NotFoundError("Sensor not found");
     }
@@ -31,7 +37,11 @@ export class UpdateService {
       updateFields.coordinates = coordinates;
     }
 
-    const updatedSensor = await this.sensorRepository.update(_id, updateFields);
+    const updatedSensor = await this.sensorRepository.update(
+      _id,
+      updateFields as IUpdateSensorDTO
+    );
+
     return updatedSensor;
   }
 }
