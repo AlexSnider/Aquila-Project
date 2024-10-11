@@ -17,9 +17,9 @@ class ConnectToTestDatabase {
 
       await mongoose.connect(mongoUrl);
 
-      console.log(`MongoDB tests connected`);
+      console.log(`Test Container Up.`);
     } catch (error: any) {
-      console.log("Error connecting to test MongoDB:", error);
+      console.log("Test Container Error:", error);
     }
   }
 
@@ -27,7 +27,7 @@ class ConnectToTestDatabase {
     if (this.mongoContainer) {
       await mongoose.disconnect();
       await this.mongoContainer.stop();
-      console.log("MongoDB disconnected and container stopped.");
+      console.log("Test Container Down.");
     }
   }
 }
