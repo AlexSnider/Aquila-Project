@@ -10,4 +10,5 @@ module.exports = {
   },
   testMatch: ["<rootDir>/__tests__/**/*.(test|spec).ts"],
   moduleDirectories: ["node_modules", "<rootDir>"],
+  setupFilesAfterEnv: ["./__tests__/config/tests.config.ts"],
 };
