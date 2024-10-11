@@ -4,13 +4,13 @@ import { ISensorRepositories } from "src/modules/v1/Sensors/repositories/ISensor
 import { CreateService } from "src/modules/v1/Sensors/useCases/create/create.service";
 
 const mockSensorRepository: jest.Mocked<ISensorRepositories> = {
-  findByName: jest.fn(),
   create: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
   findAll: jest.fn(),
-  findByUserId: jest.fn(),
   findById: jest.fn(),
+  findByName: jest.fn(),
+  findByUserId: jest.fn(),
 };
 
 describe("Create Sensor", () => {
