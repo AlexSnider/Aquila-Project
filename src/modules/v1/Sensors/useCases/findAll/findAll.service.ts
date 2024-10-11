@@ -1,7 +1,6 @@
 import { injectable, inject } from "tsyringe";
 import { ISensorRepositories } from "../../repositories/ISensorRepositories";
 import { Sensor } from "../../entities/Sensor";
-import { NotFoundError } from "../../../../../helpers/errors/apiErrors";
 
 @injectable()
 export class FindAllService {
@@ -12,11 +11,6 @@ export class FindAllService {
 
   async execute(limit: number, offset: number): Promise<Sensor[]> {
     const sensors = await this.sensorRepository.findAll(limit, offset);
-
-    if (!sensors.length) {
-      throw new NotFoundError("No sensors found");
-    }
-
     return sensors;
   }
 }
