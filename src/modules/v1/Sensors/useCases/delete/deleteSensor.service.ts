@@ -9,13 +9,13 @@ export class DeleteService {
     private sensorRepository: ISensorRepositories
   ) {}
 
-  async execute(id: string): Promise<void> {
-    const sensor = await this.sensorRepository.findById(id);
+  async execute(_id: string): Promise<void> {
+    const sensor = await this.sensorRepository.findById(_id);
 
     if (!sensor) {
       throw new NotFoundError("Sensor not found");
     }
 
-    await this.sensorRepository.delete(id);
+    await this.sensorRepository.delete(_id);
   }
 }
