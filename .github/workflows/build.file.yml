@@ -1,4 +1,4 @@
-name: Aquila Build
+name: Aquila Build Project
 
 on:
   push:
@@ -55,6 +55,6 @@ jobs:
 
       - name: Tag Docker image with context
         run: |
-          tag_name="aquila-$(date +%Y%m%d)-${{ github.sha }}"
+          tag_name=":$(date +%Y%m%d)-${{ github.sha }}"
           docker tag alexvoliveira/aquila:${{ github.sha }} alexvoliveira/aquila:${tag_name}
           docker push alexvoliveira/aquila:${tag_name}
