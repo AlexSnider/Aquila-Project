@@ -7,5 +7,5 @@ export interface ISensorRepositories {
   findAll(limit: number, offset: number): Promise<Sensor[]>;
   findByUserId(user_id: string): Promise<Sensor[] | null>;
   findByName(sensor_name: string): Promise<Sensor | null>;
-  findById(id: string): Promise<Sensor>;
+  findById(id: string): Promise<Sensor | null>;
 }
