@@ -26,7 +26,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "22"
+          node-version: "21.7.3"
 
       - name: Install dependencies
         run: npm install
@@ -55,6 +55,6 @@ jobs:
 
       - name: Tag Docker image with context
         run: |
-          tag_name=":$(date +%Y%m%d)-${{ github.sha }}"
+          tag_name="$(date +%Y%m%d)-${{ github.sha }}"
           docker tag alexvoliveira/aquila:${{ github.sha }} alexvoliveira/aquila:${tag_name}
           docker push alexvoliveira/aquila:${tag_name}
