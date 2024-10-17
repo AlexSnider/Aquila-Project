@@ -1,0 +1,59 @@
+name: Aquila Test Project
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+      - release
+      # - staging
+
+jobs: # Define os jobs que serão executados em paralelo
+  unit_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "21.7.3" # Seria melhor usar versão 18.x que e LTS
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+  integration_tests:
+    runs-on: ubuntu-latest
+    needs: unit_tests # Executa após os testes de unidade
+
+    services:
+      docker:
+        image: docker:20.10.8-dind
+        options: --privileged # Porque é necessário para rodar o Docker dentro de um container
+        ports:
+          - 2375:2375
+        env:
+          DOCKER_TLS_CERTDIR: ""
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "21.7.3" # Seria melhor usar versão 18.x que e LTS
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set up Docker
+        run: docker info
+
+      - name: Run Integration Tests
+        run: npm run test:integration

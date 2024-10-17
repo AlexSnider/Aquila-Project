@@ -4,45 +4,25 @@ on:
   push:
     branches:
       - develop
+      - main
       - release
+      # - staging
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  tests_workflow:
+    uses: ./.github/workflows/test-workflow.yml # Reutiliza o workflow de testes
 
-    services:
-      docker:
-        image: docker:20.10.8-dind
-        options: --privileged
-        ports:
-          - 2375:2375
-        env:
-          DOCKER_TLS_CERTDIR: ""
+  build_and_push_docker:
+    runs-on: ubuntu-latest
+    needs: test-workflow # Só executa se os testes passarem
 
     steps:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "21.7.3"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Set up Docker
+      - name: Build Docker image with cache
         run: |
-          docker info
-
-      - name: Run Integration Tests
-        run: npm run test:integration
-
-      - name: Run Unit Tests
-        run: npm run test:unit
-
-      - name: Build Docker image
-        run: docker build -t alexvoliveira/aquila:${{ github.sha }} .
+          docker build --cache-from alexvoliveira/aquila:latest -t alexvoliveira/aquila:${{ github.sha }} .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
