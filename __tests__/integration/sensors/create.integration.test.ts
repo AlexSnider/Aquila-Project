@@ -1,6 +1,7 @@
 import supertest from "supertest";
 import app from "../../../src/app";
 import {
+  newCreateSensorWithBasicData,
   newInvalidSensorBlankField,
   newInvalidSensorCoordinate,
   newInvalidSensorExistingName,
@@ -45,15 +46,17 @@ describe("POST /sensors - Sensor creation tests", () => {
   });
 
   it("should successfully create a sensor and return status 201", async () => {
-    const sensor = newSensor();
+    const sensor = newCreateSensorWithBasicData();
     const result = await supertestServer.post("/sensors").send(sensor);
 
     expect(result.statusCode).toBe(201);
     expect(result.body).toHaveProperty("sensor_name");
     expect(result.body).toHaveProperty("user_id");
-    expect(result.body).toHaveProperty("coordinates");
-    expect(Array.isArray(result.body.coordinates)).toBe(true);
-    expect(result.body.coordinates.length).toBe(2);
+    expect(result.body).toHaveProperty("location");
+    expect(typeof result.body.location).toBe("object");
+    expect(result.body.location).not.toBeNull();
+    expect(result.body.location).toHaveProperty("coordinates");
+    expect(Array.isArray(result.body.location.coordinates)).toBe(true);
   });
 
   it("should return 409 when sensor name already exists", async () => {
