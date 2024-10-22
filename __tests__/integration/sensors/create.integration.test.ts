@@ -7,7 +7,6 @@ import {
   newInvalidSensorExistingName,
   newInvalidSensorName,
   newInvalidSensorSchema,
-  newSensor,
 } from "__tests__/factories/sensor.factories";
 
 const supertestServer = supertest(app);
