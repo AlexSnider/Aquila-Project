@@ -4,20 +4,23 @@ export class Sensor {
   _id: Types.ObjectId;
   sensor_name: string;
   user_id: string;
-  coordinates: [Number, Number];
+  location: {
+    type: "Point";
+    coordinates: [number, number];
+  };
   createdAt: Date;
   updatedAt: Date;
 
-  constructor(
-    sensor_name: string,
-    user_id: string,
-    coordinates: [Number, Number],
-    _id: Types.ObjectId
-  ) {
-    this._id = _id;
-    this.sensor_name = sensor_name;
-    this.user_id = user_id;
-    this.coordinates = coordinates;
+  constructor(data: {
+    sensor_name: string;
+    user_id: string;
+    location: { type: "Point"; coordinates: [number, number] };
+    _id?: Types.ObjectId;
+  }) {
+    this._id = new Types.ObjectId();
+    this.sensor_name = data.sensor_name;
+    this.user_id = data.user_id;
+    this.location = data.location;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

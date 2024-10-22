@@ -1,4 +1,6 @@
-import { newSensor } from "__tests__/factories/sensor.factories";
+import {
+  newSensor,
+} from "__tests__/factories/sensor.factories";
 import "reflect-metadata";
 import { ISensorRepositories } from "src/modules/v1/Sensors/repositories/ISensorRepositories";
 import { CreateService } from "src/modules/v1/Sensors/useCases/create/create.service";
@@ -28,14 +30,33 @@ describe("Create Sensor", () => {
     mockSensorRepository.findByName.mockResolvedValueOnce(null);
 
     const sensorData = newSensor();
+    const sensorDataCorrected = {
+      ...sensorData,
+      location: {
+        type: "Point" as "Point",
+        coordinates: sensorData.location.coordinates as unknown as [
+          number,
+          number
+        ],
+      },
+    };
 
-    await createService.execute(sensorData);
+    const result = await createService.execute(sensorDataCorrected);
 
     expect(mockSensorRepository.findByName).toHaveBeenCalledWith(
       sensorData.sensor_name
     );
-    expect(mockSensorRepository.create).toHaveBeenCalledWith(sensorData);
-    expect(Array.isArray(sensorData.coordinates)).toBe(true);
-    expect(sensorData.coordinates.length).toBe(2);
+
+    expect(result).toHaveProperty("_id");
+    expect(result).toHaveProperty("sensor_name");
+    expect(result).toHaveProperty("user_id");
+    expect(result).toHaveProperty("location");
+    expect(result).toHaveProperty("createdAt");
+    expect(result).toHaveProperty("updatedAt");
+
+    expect(typeof result.location).toBe("object");
+    expect(result.location).not.toBeNull();
+    expect(result.location).toHaveProperty("coordinates");
+    expect(Array.isArray(result.location.coordinates)).toBe(true);
   });
 });

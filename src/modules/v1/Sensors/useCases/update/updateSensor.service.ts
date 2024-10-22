@@ -5,16 +5,11 @@ import {
   ForbiddenError,
   NotFoundError,
 } from "../../../../../helpers/errors/apiErrors";
-import { Types } from "mongoose";
+import { Sensor } from "../../entities/Sensor";
 
-interface IUpdateSensorDTO {
-  _id: Types.ObjectId;
-  sensor_name: string;
-  coordinates: [Number, Number];
-  user_id: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+type IUpdateSensorDTO = Partial<
+  Pick<Sensor, "user_id" | "sensor_name" | "location">
+>;
 
 @injectable()
 export class UpdateService {
@@ -23,18 +18,18 @@ export class UpdateService {
     private sensorRepository: ISensorRepositories
   ) {}
 
-  async execute(_id: string, data: Partial<IUpdateSensorDTO>): Promise<void> {
+  async execute(_id: string, data: IUpdateSensorDTO): Promise<void> {
     const sensorExists = await this.sensorRepository.findById(_id);
 
     if (!sensorExists) {
       throw new NotFoundError("Sensor not found");
     }
 
-    if (data.user_id) {
-      throw new ForbiddenError("Not allowed to update");
+    if (data.user_id !== undefined) {
+      throw new ForbiddenError("Not allowed to update user_id");
     }
 
-    const updateFields: Partial<IUpdateSensorDTO> = {};
+    const updateFields: IUpdateSensorDTO = {};
 
     if (data.sensor_name) {
       if (typeof data.sensor_name !== "string") {
@@ -42,23 +37,24 @@ export class UpdateService {
       }
       updateFields.sensor_name = data.sensor_name;
     }
-    if (data.coordinates) {
+
+    if (data.location) {
+      const { type, coordinates } = data.location;
+
       if (
-        !Array.isArray(data.coordinates) ||
-        data.coordinates.length !== 2 ||
-        !data.coordinates.every((coordinate) => typeof coordinate === "number")
+        !Array.isArray(coordinates) ||
+        coordinates.length !== 2 ||
+        !coordinates.every((coordinate) => typeof coordinate === "number")
       ) {
         throw new ConflictError("Coordinates must be an array of two numbers");
       }
 
-      updateFields.coordinates = data.coordinates;
+      updateFields.location = {
+        type: type || "Point",
+        coordinates: coordinates,
+      };
     }
 
-    const updatedSensor = await this.sensorRepository.update(
-      _id,
-      updateFields as IUpdateSensorDTO
-    );
-
-    return updatedSensor;
+    await this.sensorRepository.update(_id, updateFields);
   }
 }

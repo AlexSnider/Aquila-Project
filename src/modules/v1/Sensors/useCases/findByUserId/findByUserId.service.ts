@@ -11,10 +11,11 @@ export class FindByUserIdService {
   ) {}
 
   async execute(user_id: string): Promise<Sensor[]> {
+    console.log(user_id);
     const sensor = await this.sensorRepository.findByUserId(user_id);
 
-    if (!sensor) {
-      throw new NotFoundError("User not found");
+    if (!sensor || sensor.length === 0) {
+      throw new NotFoundError("No sensors found");
     }
 
     return sensor;

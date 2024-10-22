@@ -9,10 +9,13 @@ export function newSensor() {
     _id: new Types.ObjectId(),
     sensor_name: sensor_name,
     user_id: faker.string.uuid(),
-    coordinates: [
-      Number(faker.number.float().toFixed(4)),
-      Number(faker.number.float().toFixed(4)),
-    ] as [Number, Number],
+    location: {
+      type: "Point",
+      coordinates: [
+        faker.number.float().toFixed(4),
+        faker.number.float().toFixed(4),
+      ],
+    },
     createdAt: new Date(),
     updatedAt: new Date(),
   };
@@ -22,21 +25,37 @@ export function newRandomSensorId() {
   return new Types.ObjectId();
 }
 
+export function newRandomUserId() {
+  return faker.string.uuid();
+}
+
 export async function newCreateSensor() {
   const sensor = newSensor();
   const sensorDb = await SensorSchema.create(sensor);
   return sensorDb;
 }
 
+export function newCreateSensorWithBasicData() {
+  const { _id, createdAt, updatedAt, ...sensor } = newSensor();
+  return sensor;
+}
+
 export function newInvalidSensorCoordinate() {
   return {
     ...newSensor(),
-    coordinates: [faker.number.float().toFixed(4), faker.word.sample(5)],
+    location: {
+      type: "Point",
+      coordinates: [
+        faker.number.float().toFixed(4),
+        faker.number.float().toFixed(4),
+        faker.number.float().toFixed(4),
+      ],
+    },
   };
 }
 
 export function newInvalidSensorSchema() {
-  const { coordinates, ...sensor } = newSensor();
+  const { location, ...sensor } = newSensor();
   return sensor;
 }
 
@@ -45,9 +64,12 @@ export function newInvalidSensorName() {
 }
 
 export function newInvalidSensorBlankField() {
-  return { ...newSensor(), sensor_name: "", user_id: "", coordinates: [] };
+  return { ...newSensor(), sensor_name: "", user_id: "", location: {} };
 }
 
 export function newInvalidSensorExistingName() {
-  return { ...newSensor(), sensor_name: sensor_name };
+  const { _id, createdAt, updatedAt, ...sensor } = newSensor();
+  const sensorEdited = sensor;
+  sensorEdited.sensor_name = sensor_name;
+  return sensorEdited;
 }

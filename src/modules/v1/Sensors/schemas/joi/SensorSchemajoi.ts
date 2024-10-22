@@ -1,15 +1,10 @@
-import joi from "joi";
+import Joi from "joi";
 
-export const SensorSchemaJoi = joi.object({
-  _id: joi.string(),
-
-  sensor_name: joi.string().min(4).alphanum().required(),
-
-  user_id: joi.string().uuid().required(),
-
-  coordinates: joi.array().items(joi.number()).length(2).required(),
-
-  createdAt: joi.date(),
-
-  updatedAt: joi.date(),
+export const SensorSchemaJoi = Joi.object({
+  sensor_name: Joi.string().min(4).alphanum().required(),
+  user_id: Joi.string().uuid().required(),
+  location: Joi.object({
+    type: Joi.string().valid("Point").required(),
+    coordinates: Joi.array().items(Joi.number()).length(2).required(),
+  }).required(),
 });
