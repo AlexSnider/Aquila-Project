@@ -2,11 +2,11 @@ import "express-async-errors";
 import "reflect-metadata";
 import "../src/helpers/container";
 import express, { json, Express } from "express";
-import router from "../src/routes";
+import router from "./routes";
 import ConnectToMongoDatabase from "./database/production";
 import ConnectToTestDatabase from "./database/tests";
-import errorMiddleware from "../src/middleware/errorMiddleware";
-import corsMiddleware from "../src/middleware/corsMiddleware";
+import errorMiddleware from "./middleware/errorMiddleware";
+import corsMiddleware from "./middleware/corsMiddleware";
 
 const app = express();
 
