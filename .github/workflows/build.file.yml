@@ -5,7 +5,7 @@ on:
     branches:
       - develop
       - release
-  
+
   pull_request:
     branches:
       - develop
@@ -32,12 +32,19 @@ jobs:
         with:
           node-version: "21.7.3"
 
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm install
 
       - name: Set up Docker
-        run: |
-          docker info
+        run: docker info
 
       - name: Run Integration Tests
         run: npm run test:integration
