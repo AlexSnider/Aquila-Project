@@ -1,6 +1,12 @@
 name: Aquila Test Project
 
 on:
+  workflow_call: # Chave que permite que este workflow seja chamado de outros workflows
+    inputs: # Você pode definir entradas se necessário
+      some_input:
+        required: false
+        type: string
+
   push:
     branches:
       - develop
