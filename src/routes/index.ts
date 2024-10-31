@@ -1,8 +1,11 @@
 import { Router } from "express";
 import sensorRoutes from "./v1/Sensors/sensorRoute";
+import healthCheckRoute from "./health-check/health-check-route/healthCheckRoute";
+import corsMiddleware from "../middleware/corsMiddleware";
 
 const router = Router();
 
-router.use("/sensors", sensorRoutes);
+router.use("/health-check", corsMiddleware.execute, healthCheckRoute);
+router.use("/sensors", corsMiddleware.execute, sensorRoutes);
 
 export default router;

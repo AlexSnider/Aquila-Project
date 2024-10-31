@@ -1,7 +1,14 @@
 import { model, Schema } from "mongoose";
-import { Sensor } from "../entities/Sensor";
 
-const SensorSchema = new Schema<Sensor>(
+interface ISensor {
+  sensor_name: string;
+  user_id: string;
+  location: { type: "Point"; coordinates: [number, number] };
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const SensorSchema = new Schema(
   {
     sensor_name: {
       type: String,
@@ -11,20 +18,21 @@ const SensorSchema = new Schema<Sensor>(
       type: String,
       required: true,
     },
-    coordinates: {
-      type: [Number, Number],
-      required: true,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
+    location: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
     },
   },
   { timestamps: true }
 );
 
-export default model<Sensor>("sensors", SensorSchema);
+SensorSchema.index({ location: "2dsphere" });
+
+export default model<ISensor>("Sensor", SensorSchema);

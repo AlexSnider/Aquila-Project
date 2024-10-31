@@ -4,19 +4,16 @@ import SensorSchema from "../../schemas/SensorSchema";
 
 export class SensorRepositoriesMongoDB implements ISensorRepositories {
   async create(body: Sensor): Promise<Sensor> {
-    await SensorSchema.create(body);
-    return body;
+    const createdSensor = await SensorSchema.create(body);
+    return createdSensor;
   }
 
-  async findByUserId(user_id: string): Promise<Sensor[] | null> {
-    const sensors = await SensorSchema.find({ user_id }).select("-__v").lean();
-
-    return sensors.length ? (sensors as Sensor[]) : null;
+  async update(id: string, data: Partial<Sensor>): Promise<void> {
+    await SensorSchema.findByIdAndUpdate(id, data, { new: true });
   }
 
-  async findByName(sensor_name: string): Promise<Sensor | null> {
-    const sensor = await SensorSchema.findOne({ sensor_name }).select("-__v");
-    return sensor;
+  async delete(id: string): Promise<void> {
+    await SensorSchema.findByIdAndDelete(id);
   }
 
   async findAll(limit: number, offset: number): Promise<Sensor[]> {
@@ -32,11 +29,13 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
     return sensor;
   }
 
-  async update(id: string, data: Sensor): Promise<void> {
-    await SensorSchema.findByIdAndUpdate(id, data);
+  async findByUserId(user_id: string): Promise<Sensor[]> {
+    const sensors = await SensorSchema.find({ user_id }).select("-__v");
+    return sensors;
   }
 
-  async delete(id: string): Promise<void> {
-    await SensorSchema.findByIdAndDelete(id);
+  async findByName(sensor_name: string): Promise<Sensor | null> {
+    const sensor = await SensorSchema.findOne({ sensor_name }).select("-__v");
+    return sensor;
   }
 }

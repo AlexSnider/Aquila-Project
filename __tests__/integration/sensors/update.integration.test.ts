@@ -41,7 +41,10 @@ describe("PATCH /sensors/update/:id - Update a sensor by ID", () => {
       .send({ user_id: "123" });
 
     expect(result.statusCode).toBe(403);
-    expect(result.body).toHaveProperty("message", "Not allowed to update");
+    expect(result.body).toHaveProperty(
+      "message",
+      "Not allowed to update user_id"
+    );
   });
 
   it("should return 409 when coordinates are not an array of two numbers", async () => {
@@ -50,7 +53,9 @@ describe("PATCH /sensors/update/:id - Update a sensor by ID", () => {
 
     const result = await supertestServer
       .patch(`/sensors/update/${sensorId}`)
-      .send({ coordinates: newInvalidSensorCoordinate() });
+      .send({
+        location: { type: "Point", coordinates: newInvalidSensorCoordinate() },
+      });
 
     expect(result.statusCode).toBe(409);
     expect(result.body).toHaveProperty(
