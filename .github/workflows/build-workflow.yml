@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - main
       - release
 
   pull_request:
@@ -11,17 +12,12 @@ on:
       - develop
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  tests_workflow:
+    uses: ./.github/workflows/test-workflow.yml # Reutiliza o workflow de testes
 
-    services:
-      docker:
-        image: docker:20.10.8-dind
-        options: --privileged
-        ports:
-          - 2375:2375
-        env:
-          DOCKER_TLS_CERTDIR: ""
+  build_and_push_docker:
+    runs-on: ubuntu-latest
+    needs: tests_workflow # Só executa se os testes passarem
 
     steps:
       - name: Check out code
