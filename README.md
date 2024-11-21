@@ -11,7 +11,7 @@ Para a nossa versão do projeto, utilizamos:
 - Node.js
 - TypeScript
 - Express
-- MongoDb
+- MongoDB Atlas
 - Mongoose
 - CI/CD
 - Docker
@@ -28,15 +28,17 @@ Eu (Alex), fui encarregado de desenvolver o backend por completo e o (Joelson), 
 As implementações sempre passam pela avaliação do mentor antes de serem aprovadas (via PR).
 
 ## Partes já concluídas
-### Backend
+### Backend (Alex)
 - Containers necessários para a aplicação;
-- Conexão com banco de dados;
-- Casos de uso pertinentes;
-- Rotas;
-- CI no repositório;
-- CD no DockerHub;
-- Testes de Integração <br/>
-### Frontend
+- [Conexão](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database) com banco de dados;
+- [Casos de uso](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/modules/v1/Sensors/useCases) pertinentes;
+- [Rotas](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/routes/v1/Sensors/sensorRoute.ts);
+- CI no [Repositório](https://github.com/AlexSnider/Aquila-Project/tree/develop);
+- CD no [DockerHub](https://hub.docker.com/r/alexvoliveira/aquila/tags);
+- Testes de [Integração](https://github.com/AlexSnider/Aquila-Project/tree/develop/__tests__/integration/sensors);
+
+>**Nota:** Deploy da Aplicação na AWS usando Fargate (em off por motivos financeiros). <br/>
+### Frontend (Joelson)
 - Mapa de calor dos sensores
 - Login de usuários (futura implementação)
 
