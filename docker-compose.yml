@@ -1,36 +1,6 @@
 version: "3.8"
 
 services:
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb-aquila
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: username
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: database
-    networks:
-      - app-network
-
-  mongodb-express:
-    image: mongo-express
-    container_name: mongo-express-aquila
-    ports:
-      - "8081:8081"
-    restart: always
-    environment:
-      ME_CONFIG_MONGODB_SERVER: mongodb
-      ME_CONFIG_MONGODB_ADMINUSERNAME: username
-      ME_CONFIG_MONGODB_ADMINPASSWORD: password
-      ME_CONFIG_BASICAUTH_USERNAME: admin
-      ME_CONFIG_BASICAUTH_PASSWORD: password
-    networks:
-      - app-network
-
   app:
     #image: 
     build: .
@@ -38,16 +8,4 @@ services:
     ports:
       - "3005:3005"
     environment:
-      MONGO_URI: mongodb://username:password@mongodb-aquila:27017/database
-    depends_on:
-      - mongodb
-    networks:
-      - app-network
-
-volumes:
-  mongodb_data:
-    driver: local
-
-networks:
-  app-network:
-    driver: bridge
+      MONGO_URI: ${MONGO_URI}

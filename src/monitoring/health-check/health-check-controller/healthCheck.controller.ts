@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import apiHealthCheck from "../health-check/api.health-check";
+import apiHealthCheck from "../api.health-check";
 
 class HealthCheckController {
   async handle(request: Request, response: Response): Promise<Response> {

@@ -1,4 +1,4 @@
-FROM node:21.7.3
+FROM node:22.11.0-alpine
 
 WORKDIR /usr/src/app
 
@@ -11,3 +11,4 @@ COPY . .
 EXPOSE 3005
 
 CMD ["npm", "start"]
+
