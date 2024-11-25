@@ -20,8 +20,8 @@ Para a nossa versão do projeto, utilizamos:
 - CI/CD;
 - GitHub Actions;
 - Docker;
-- Jest;
-- Test Containers; <br/>
+- Jest Tests;
+- [Test Containers](https://testcontainers.com); <br/>
 - Algumas bases de CleanArch
 - Swagger Annotations;
 - OpenTelemtry e Jaeger Tracer;
