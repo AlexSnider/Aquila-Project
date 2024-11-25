@@ -13,6 +13,7 @@ Para a nossa versão do projeto, utilizamos:
 - Express;
 - MongoDB Docker > migração para MongoDB Atlas;
 - Mongoose;
+- AWS Cloud;
 - CI/CD;
 - GitHub Actions;
 - Docker;
