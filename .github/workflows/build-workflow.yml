@@ -7,10 +7,6 @@ on:
       - main
       - release
 
-  pull_request:
-    branches:
-      - develop
-
 jobs:
   tests_workflow:
     uses: ./.github/workflows/test-workflow.yml # Reutiliza o workflow de testes

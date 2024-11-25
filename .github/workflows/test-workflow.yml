@@ -7,12 +7,11 @@ on:
         required: false
         type: string
 
-  push:
+  pull_request:
     branches:
       - develop
       - main
       - release
-      # - staging
 
 jobs: # Define os jobs que serão executados em paralelo
   unit_tests:
