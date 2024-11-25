@@ -8,16 +8,17 @@ O [Projeto](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolv
 ## Tecnologias
 Para a nossa versão do projeto, utilizamos:
 ### Backend
-- Node.js
-- TypeScript
-- Express
-- MongoDB Atlas
-- Mongoose
-- CI/CD
-- Docker
-- Jest
-- Test Containers <br/>
-- Algumas bases de CleanArch
+- Node.js (22.11.0 LTS);
+- TypeScript;
+- Express;
+- MongoDB Docker > migração para MongoDB Atlas;
+- Mongoose;
+- CI/CD;
+- GitHub Actions;
+- Docker;
+- Jest;
+- Test Containers; <br/>
+- Algumas bases de CleanArch.
 
 ### Frontend
 - Next.js
@@ -30,14 +31,24 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
 ## Partes já concluídas
 ### Backend (Alex)
 - Containers necessários para a aplicação;
-- [Conexão](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database) com banco de dados;
+- [Conexão](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database) com banco de dados separados (produção e testes);
 - [Casos de uso](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/modules/v1/Sensors/useCases) pertinentes;
 - [Rotas](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/routes/v1/Sensors/sensorRoute.ts);
 - CI no [Repositório](https://github.com/AlexSnider/Aquila-Project/tree/develop);
 - CD no [DockerHub](https://hub.docker.com/r/alexvoliveira/aquila/tags);
+- [Workflows](https://github.com/AlexSnider/Aquila-Project/tree/develop/.github/workflows);
+- Documentação com [Swagger Annotations](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/docs/swaggerConfig.ts);
 - Testes de [Integração](https://github.com/AlexSnider/Aquila-Project/tree/develop/__tests__/integration/sensors);
 
->**Nota:** Deploy da Aplicação na AWS usando Fargate (em off por motivos financeiros). <br/>
+### A fazer
+- Testes de Unidade;
+- Refinamento do Workflows;
+- Ajustes gerais;
+- Métricas com Jaeger Tracer e Open Telemetry
+- Login de usuários (futura implementação);
+
+
+>**Nota:** A aplicação já teve o seu Deploy efetuado na AWS usando Fargate (em off por motivos financeiros). <br/>
 ### Frontend (Joelson)
 - Mapa de calor dos sensores
 - Login de usuários (futura implementação)
