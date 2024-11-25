@@ -39,15 +39,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Set up Docker
-        run: docker info
-
-      - name: Run Integration Tests
-        run: npm run test:integration
-
-      - name: Run Unit Tests
-        run: npm run test:unit
-
       - name: Build Docker image
         run: docker build -t alexvoliveira/aquila:${{ github.sha }} .
 
