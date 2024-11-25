@@ -24,7 +24,7 @@ Para a nossa versão do projeto, utilizamos:
 - [Test Containers](https://testcontainers.com); <br/>
 - Algumas bases de CleanArch
 - Swagger Annotations;
-- OpenTelemtry e Jaeger Tracer;
+- OpenTelemtry e Jaeger Tracer (apenas localmente);
 
 ### Frontend
 - Next.js
