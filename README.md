@@ -18,7 +18,9 @@ Para a nossa versão do projeto, utilizamos:
 - Docker;
 - Jest;
 - Test Containers; <br/>
-- Algumas bases de CleanArch.
+- Algumas bases de CleanArch
+- Swagger Annotations;
+- OpenTelemtry e Jaeger Tracer;
 
 ### Frontend
 - Next.js
@@ -44,7 +46,7 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
 - Testes de Unidade;
 - Refinamento do Workflows;
 - Ajustes gerais;
-- Métricas com Jaeger Tracer e Open Telemetry
+- Métricas com Jaeger Tracer e OpenTelemetry;
 - Login de usuários (futura implementação);
 
 
