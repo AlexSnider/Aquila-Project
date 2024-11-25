@@ -64,7 +64,7 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
   <img src="https://github.com/AlexSnider/Mini-E-commerce-TS-Prisma/assets/103783575/8e1aa77c-ebe0-4b08-8da8-8ecb9fbbe177" alt="OpenTelemetry Icon">
 </p>
 
-<p align="center">All credits to <a href="https://www.jaegertracing.io">Jaeger</a>, <a href="https://opentelemetry.io">OpenTelemetry</a></p>
+<p align="center">All credits to <a href="https://www.jaegertracing.io">Jaeger</a> and <a href="https://opentelemetry.io">OpenTelemetry</a></p>
 
 ## Licença
 Free [MIT](https://github.com/AlexSnider/Aquila-Project/blob/main/LICENSE) Licence.
