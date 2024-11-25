@@ -1,5 +1,8 @@
 # Aquila - ShipYard
 
+![node-js-736399_1920](https://github.com/AlexSnider/Projeto-API-e-commerce-Node.js/assets/103783575/18da5724-9985-4320-ae21-800a2ebfb092)
+<p align="center"><a href="https://nodejs.org/en" target="_blank">Node.js®</a> is an open-source, cross-platform JavaScript runtime environment.</p>
+
 ## Introdução
 O [Projeto](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolvido como parte de uma nova empreitada do [Mentor](https://github.com/vittooh) que lançou o desafio para seus mentorados EU e o [Joelson](https://github.com/joabysonSouza), para que pudessemos por em prática nossas habilidades.
 
@@ -54,7 +57,14 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
 >**Nota:** A aplicação já teve o seu Deploy efetuado na AWS usando Fargate (em off por motivos financeiros). <br/>
 ### Frontend (Joelson)
 - Mapa de calor dos sensores
-- Login de usuários (futura implementação)
+- Login de usuários (futura implementação) <br/><br/>
+
+<p align="center">
+  <img src="https://github.com/AlexSnider/Mini-E-commerce-TS-Prisma/assets/103783575/ec245569-dcc4-4c21-bcf0-19f92262da5e" alt="Jaeger Icon">
+  <img src="https://github.com/AlexSnider/Mini-E-commerce-TS-Prisma/assets/103783575/8e1aa77c-ebe0-4b08-8da8-8ecb9fbbe177" alt="OpenTelemetry Icon">
+</p>
+
+<p align="center">All credits to <a href="https://www.jaegertracing.io">Jaeger</a>, <a href="https://opentelemetry.io">OpenTelemetry</a></p>
 
 ## Licença
 Free [MIT](https://github.com/AlexSnider/Aquila-Project/blob/main/LICENSE) Licence.
