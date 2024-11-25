@@ -7,12 +7,11 @@ on:
         required: false
         type: string
 
-  push:
+  pull_request:
     branches:
       - develop
       - main
       - release
-      # - staging
 
 jobs: # Define os jobs que serão executados em paralelo
   unit_tests:
@@ -53,7 +52,7 @@ jobs: # Define os jobs que serão executados em paralelo
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "21.7.3" # Seria melhor usar versão 18.x que e LTS
+          node-version: "22.11.0"
 
       - name: Install dependencies
         run: npm install

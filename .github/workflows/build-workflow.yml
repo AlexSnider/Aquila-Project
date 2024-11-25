@@ -7,10 +7,6 @@ on:
       - main
       - release
 
-  pull_request:
-    branches:
-      - develop
-
 jobs:
   tests_workflow:
     uses: ./.github/workflows/test-workflow.yml # Reutiliza o workflow de testes
@@ -38,15 +34,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Set up Docker
-        run: docker info
-
-      - name: Run Integration Tests
-        run: npm run test:integration
-
-      - name: Run Unit Tests
-        run: npm run test:unit
 
       - name: Build Docker image
         run: docker build -t alexvoliveira/aquila:${{ github.sha }} .
