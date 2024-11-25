@@ -57,7 +57,18 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
 >**Nota:** A aplicação já teve o seu Deploy efetuado na AWS usando Fargate (em off por motivos financeiros). <br/>
 ### Frontend (Joelson)
 - Mapa de calor dos sensores
-- Login de usuários (futura implementação) <br/><br/>
+- Login de usuários (futura implementação)
+
+## Como usar
+
+Faça Docker Pull da última imagem do [repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) e depois o download do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example). Edite as configurações. Lembre-se de adicionar o serviço MongoDB ao docker compose, caso queira usar localmente.
+
+Adicione o path  ```env_file:
+      - ./path/to/your/.env``` para o .env ao docker compose.
+
+Execute usando ```docker-compose up```.
+
+<br/><br/>
 
 <p align="center">
   <img src="https://github.com/AlexSnider/Mini-E-commerce-TS-Prisma/assets/103783575/ec245569-dcc4-4c21-bcf0-19f92262da5e" alt="Jaeger Icon">
