@@ -55,20 +55,20 @@ A base do backend vem do curso da iTalents que ganhei por ter conseguido ser des
 
 #### Dados na coleção do MongoDB Atlas
 ![image](https://github.com/user-attachments/assets/2d0ee97c-b2ba-46ee-8e65-b00214d003f9)
->**Nota:** user_id representa o id de um usuário (futura implementação).
+>**Nota:** user_id representa o id de um usuário (futura implementação com KeyCloak).
 
 ### 💡 A fazer
 - Testes de Unidade;
 - Refinamento do Workflows;
 - Ajustes gerais;
 - Métricas com Jaeger Tracer e OpenTelemetry;
-- Login de usuários (futura implementação);
+- Login de usuários (futura implementação com KeyCloak);
 
 
 >**Nota:** A aplicação já teve o seu Deploy efetuado na AWS usando Fargate (em off por motivos financeiros). <br/>
 ### Frontend (Joelson)
 - Mapa de calor dos sensores;
-- Login de usuários (futura implementação).
+- Login de usuários (futura implementação com KeyCloak).
 
 ## 🌟 Como usar
 
