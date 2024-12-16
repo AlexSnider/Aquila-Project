@@ -34,7 +34,7 @@ Eu (Alex), fui encarregado de desenvolver o backend por completo e o (Joelson), 
 
 As implementações sempre passam pela avaliação do mentor antes de serem aprovadas (via PR).
 
-A base do backend vem do curso da iTalents que ganhei por ter conseguido ser destaque no bootcamp com eles. Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
+A base do backend vem do [curso](https://loja.italents.com.br/products/formacao-back-end-com-node-js) da iTalents que ganhei por ter conseguido ser destaque no bootcamp com eles. Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
 
 ### Conceito REST
  - A API conta com padrões REST, seguido a lógica dos verbos HTTP para sua elaboração;
