@@ -46,6 +46,10 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
 - Documentação com [Swagger Annotations](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/docs/swaggerConfig.ts);
 - Testes de [Integração](https://github.com/AlexSnider/Aquila-Project/tree/develop/__tests__/integration/sensors);
 
+#### Dados na coleção do MongoDB Atlas
+![image](https://github.com/user-attachments/assets/2d0ee97c-b2ba-46ee-8e65-b00214d003f9)
+>**Nota:** user_id representa o id de um usuário (futura implementação).
+
 ### A fazer
 - Testes de Unidade;
 - Refinamento do Workflows;
@@ -56,8 +60,8 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
 
 >**Nota:** A aplicação já teve o seu Deploy efetuado na AWS usando Fargate (em off por motivos financeiros). <br/>
 ### Frontend (Joelson)
-- Mapa de calor dos sensores
-- Login de usuários (futura implementação)
+- Mapa de calor dos sensores;
+- Login de usuários (futura implementação).
 
 ## Como usar
 
