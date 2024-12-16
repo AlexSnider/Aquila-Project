@@ -3,12 +3,12 @@
 ![node-js-736399_1920](https://github.com/AlexSnider/Projeto-API-e-commerce-Node.js/assets/103783575/18da5724-9985-4320-ae21-800a2ebfb092)
 <p align="center"><a href="https://nodejs.org/en" target="_blank">Node.js®</a> is an open-source, cross-platform JavaScript runtime environment.</p>
 
-## Introdução
+## 👋 Introdução
 O [Projeto](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolvido como parte de uma nova empreitada do [Mentor](https://github.com/vittooh) que lançou o desafio para seus mentorados EU e o [Joelson](https://github.com/joabysonSouza), para que pudessemos por em prática nossas habilidades.
 
 >**Nota:** Atualmente o projeto encontra-se em desenvolvimento constante.
 
-## Tecnologias
+## 💻 Tecnologias
 Para a nossa versão do projeto, utilizamos:
 ### Backend
 - Node.js (22.11.0 LTS);
@@ -29,12 +29,12 @@ Para a nossa versão do projeto, utilizamos:
 ### Frontend
 - Next.js
 
-## Desenvolvimento
+## ⚙️ Desenvolvimento
 Eu (Alex), fui encarregado de desenvolver o backend por completo e o (Joelson), o frontend.
 
 As implementações sempre passam pela avaliação do mentor antes de serem aprovadas (via PR).
 
-## Partes já concluídas
+## 🚀 Partes já concluídas
 ### Backend (Alex)
 - Containers necessários para a aplicação;
 - [Conexão](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database) com banco de dados separados (produção e testes);
@@ -50,7 +50,7 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
 ![image](https://github.com/user-attachments/assets/2d0ee97c-b2ba-46ee-8e65-b00214d003f9)
 >**Nota:** user_id representa o id de um usuário (futura implementação).
 
-### A fazer
+### 💡 A fazer
 - Testes de Unidade;
 - Refinamento do Workflows;
 - Ajustes gerais;
@@ -63,7 +63,7 @@ As implementações sempre passam pela avaliação do mentor antes de serem apro
 - Mapa de calor dos sensores;
 - Login de usuários (futura implementação).
 
-## Como usar
+## 🌟 Como usar
 
 Faça Docker Pull da última imagem do [repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) e depois o download do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example). Edite as configurações. Lembre-se de adicionar o serviço MongoDB ao docker compose, caso queira usar localmente. Você precisará do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) para isso.
 
