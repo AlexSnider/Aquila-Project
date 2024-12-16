@@ -34,6 +34,13 @@ Eu (Alex), fui encarregado de desenvolver o backend por completo e o (Joelson), 
 
 As implementações sempre passam pela avaliação do mentor antes de serem aprovadas (via PR).
 
+A base do backend vem do curso da iTalents que ganhei por ter conseguido ser destaque no bootcamp com eles. Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
+
+### Conceito REST
+ - A API conta com padrões REST, seguido a lógica dos verbos HTTP para sua elaboração;
+ - As respostas da API seguem o padrão JSON, garantindo compatibilidade e simplicidade;
+ - Stataless: Cada requisição contém todas as informações necessárias, sem depender do estado de requisições anteriores
+
 ## 🚀 Partes já concluídas
 ### Backend (Alex)
 - Containers necessários para a aplicação;
