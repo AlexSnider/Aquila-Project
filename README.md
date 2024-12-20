@@ -62,12 +62,24 @@ Aqui você encontra as [novidades](https://github.com/AlexSnider/Aquila-Project/
 
 ## 🌟 Como usar
 
+Clone o repositório para rodar localmente:
+```
+git clone https://github.com/AlexSnider/Aquila-Project
+```
+OU
+
 Faça Docker Pull da última imagem do [repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) e depois o download do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example). Edite as configurações. Lembre-se de adicionar o serviço MongoDB ao docker compose, caso queira usar localmente. Você precisará do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) para isso.
 
-Adicione o path  ```env_file:
-      - ./path/to/your/.env``` para o .env ao docker compose.
+Adicione o path:
+```
+env_file: - ./path/to/your/.env
+```
+para o .env ao docker compose.
 
-Execute usando ```docker-compose up```.
+Execute usando:
+```
+docker-compose up
+```
 
 <br/><br/>
 
