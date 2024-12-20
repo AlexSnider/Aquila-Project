@@ -4,13 +4,13 @@
 <p align="center"><a href="https://nodejs.org/en" target="_blank">Node.js®</a> is an open-source, cross-platform JavaScript runtime environment.</p>
 
 ## 👋 Introdução
-O [Projeto](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolvido como parte de uma nova empreitada do [Mentor](https://github.com/vittooh) que lançou o desafio para seus mentorados EU e o [Joelson](https://github.com/joabysonSouza), para que pudessemos por em prática nossas habilidades.
+O [Projeto](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolvido como parte de uma nova empreitada do [Mentor](https://github.com/vittooh) que lançou o desafio para seus mentorados (*EU*), para que pudesse por em prática as habilidades adiquiridas.
 
->**Nota:** Atualmente o projeto encontra-se em desenvolvimento constante.
+>**Nota 1:** Atualmente o projeto encontra-se em desenvolvimento constante.
 
 ## 💻 Tecnologias
-Para a nossa versão do projeto, utilizamos:
-### Backend
+Para essa versão do projeto, utilizei (implementarei):
+### Back-End
 - Node.js (22.11.0 LTS);
 - TypeScript;
 - Express;
@@ -26,15 +26,12 @@ Para a nossa versão do projeto, utilizamos:
 - Swagger Annotations;
 - OpenTelemtry e Jaeger Tracer (apenas localmente);
 
-### Frontend
-- Next.js
-
 ## ⚙️ Desenvolvimento
-Eu (Alex), fui encarregado de desenvolver o backend por completo e o (Joelson), o frontend.
 
 As implementações sempre passam pela avaliação do mentor antes de serem aprovadas (via PR).
 
-A base do backend vem do [curso](https://loja.italents.com.br/products/formacao-back-end-com-node-js) da iTalents que ganhei por ter conseguido ser destaque no bootcamp com eles. Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
+A base do back-end vem do [curso](https://loja.italents.com.br/products/formacao-back-end-com-node-js) da iTalents que ganhei por ter conseguido ser destaque no bootcamp com eles. <br/><br/>
+Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
 
 ### Conceito REST
  - A API conta com padrões REST, seguido a lógica dos verbos HTTP para sua elaboração;
@@ -42,7 +39,7 @@ A base do backend vem do [curso](https://loja.italents.com.br/products/formacao-
  - Stataless: Cada requisição contém todas as informações necessárias, sem depender do estado de requisições anteriores
 
 ## 🚀 Partes já concluídas
-### Backend (Alex)
+### Back-End
 - Containers necessários para a aplicação;
 - [Conexão](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database) com banco de dados separados (produção e testes);
 - [Casos de uso](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/modules/v1/Sensors/useCases) pertinentes;
@@ -55,20 +52,13 @@ A base do backend vem do [curso](https://loja.italents.com.br/products/formacao-
 
 #### Dados na coleção do MongoDB Atlas
 ![image](https://github.com/user-attachments/assets/2d0ee97c-b2ba-46ee-8e65-b00214d003f9)
->**Nota:** user_id representa o id de um usuário (futura implementação com KeyCloak).
+>**Nota 2:** user_id representa o id de um usuário (futura implementação com KeyCloak).
 
-### 💡 A fazer
-- Testes de Unidade;
-- Refinamento do Workflows;
-- Ajustes gerais;
-- Métricas com Jaeger Tracer e OpenTelemetry;
-- Login de usuários (futura implementação com KeyCloak);
+## 💡 A fazer
+Aqui você encontra as [novidades](https://github.com/AlexSnider/Aquila-Project/issues) a serem implementadas.
 
 
->**Nota:** A aplicação já teve o seu Deploy efetuado na AWS usando Fargate (em off por motivos financeiros). <br/>
-### Frontend (Joelson)
-- Mapa de calor dos sensores;
-- Login de usuários (futura implementação com KeyCloak).
+>**Nota 3:** A aplicação já teve o seu Deploy efetuado na AWS usando Fargate (em off por motivos financeiros). <br/>
 
 ## 🌟 Como usar
 
