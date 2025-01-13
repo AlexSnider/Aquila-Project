@@ -1,15 +1,6 @@
 version: "3.8"
 
 services:
-  #app:
-  #image:
-  #build: .
-  #container_name: app-aquila
-  #ports:
-  # - "3005:3005"
-  #environment:
-  #MONGO_URI: ${MONGO_URI}
-
   jaeger-collector:
     image: jaegertracing/all-in-one:latest
     environment:
