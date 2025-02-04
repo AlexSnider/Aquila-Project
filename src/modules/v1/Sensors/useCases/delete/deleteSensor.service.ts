@@ -10,7 +10,7 @@ export class DeleteService {
   ) {}
 
   async execute(_id: string): Promise<void> {
-    const sensor = await this.sensorRepository.findById(_id);
+    const sensor = await this.sensorRepository.findCollectionByUserId(_id);
 
     if (!sensor) {
       throw new NotFoundError("Sensor not found");
