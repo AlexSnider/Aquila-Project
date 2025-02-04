@@ -18,7 +18,7 @@ class ConnectToTestDatabase {
       await mongoose.connect(mongoUrl);
 
       console.log(`Test Container Up.`);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log("Test Container Error:", error);
     }
   }
