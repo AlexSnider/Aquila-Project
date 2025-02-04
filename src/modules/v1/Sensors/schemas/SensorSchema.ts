@@ -1,38 +1,108 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
+
+interface ILocation {
+  type: "Point";
+  coordinates: [number, number];
+}
 
 interface ISensor {
+  _id: Types.ObjectId;
   sensor_name: string;
+  location: ILocation;
+}
+
+interface ISensorGroup {
+  _id: Types.ObjectId;
+  sensor_group_name: string;
+  sensors: ISensor[];
+}
+
+interface ISensorDocument {
+  _id: Types.ObjectId;
   user_id: string;
-  location: { type: "Point"; coordinates: [number, number] };
+  sensor_groups: ISensorGroup[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-const SensorSchema = new Schema(
+const LocationSchema = new Schema<ILocation>(
   {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
+const SensorSchema = new Schema<ISensor>(
+  {
+    _id: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
     sensor_name: {
       type: String,
       required: true,
     },
+    location: {
+      type: LocationSchema,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
+const SensorGroupSchema = new Schema<ISensorGroup>(
+  {
+    _id: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      default: () => new Types.ObjectId(),
+    },
+    sensor_group_name: {
+      type: String,
+      required: true,
+    },
+    sensors: {
+      type: [SensorSchema],
+      required: true,
+      validate: {
+        validator: function (v: ISensor[]) {
+          return v.length <= 25;
+        },
+        message: "Maximum of 25 sensors per group.",
+      },
+    },
+  },
+  { _id: false }
+);
+
+const SensorDocumentSchema = new Schema<ISensorDocument>(
+  {
     user_id: {
       type: String,
       required: true,
     },
-    location: {
-      type: {
-        type: String,
-        enum: ["Point"],
-        required: true,
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
+    sensor_groups: {
+      type: [SensorGroupSchema],
+      required: true,
+      validate: {
+        validator: function (v: ISensorGroup[]) {
+          return v.length <= 10;
+        },
+        message: "Maximum of 10 sensor groups per user.",
       },
     },
   },
   { timestamps: true }
 );
 
-SensorSchema.index({ location: "2dsphere" });
+SensorDocumentSchema.index({ "sensor_groups.sensors.location": "2dsphere" });
 
-export default model<ISensor>("Sensor", SensorSchema);
+export default model<ISensorDocument>("SensorDocument", SensorDocumentSchema);
