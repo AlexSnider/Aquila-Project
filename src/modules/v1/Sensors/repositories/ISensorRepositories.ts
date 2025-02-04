@@ -1,11 +1,48 @@
+import { Types } from "mongoose";
 import { Sensor } from "../entities/Sensor";
 
+export interface ISensorGroupResult {
+  sensor_groups: {
+    _id: Types.ObjectId;
+    sensor_group_name: string;
+    sensors: {
+      sensor_name: string;
+      location: {
+        type: "Point";
+        coordinates: [number, number];
+      };
+    }[];
+  }[];
+}
+
+export interface ISensorResult {
+  _id: Types.ObjectId;
+  sensor_name: string;
+  location: {
+    type: "Point";
+    coordinates: [number, number];
+  };
+}
+
 export interface ISensorRepositories {
+  // CREATE
   create(body: Sensor): Promise<Sensor>;
+
+  // UPDATE
   update(id: string, data: Partial<Sensor>): Promise<void>;
+
+  // DELETE
   delete(id: string): Promise<void>;
+
+  // LIST
   findAll(limit: number, offset: number): Promise<Sensor[]>;
-  findByUserId(user_id: string): Promise<Sensor[]>;
-  findByName(sensor_name: string): Promise<Sensor | null>;
-  findById(id: string): Promise<Sensor | null>;
+  findCollectionByUserId(user_id: string): Promise<Sensor[]>;
+  findGroupsByUserIdAndGroupId(
+    user_id: string,
+    groupIdObject: Types.ObjectId
+  ): Promise<ISensorGroupResult[]>;
+  findSensorByUserIdAndSensorId(
+    user_id: string,
+    sensorIdObject: Types.ObjectId
+  ): Promise<ISensorResult[]>;
 }
