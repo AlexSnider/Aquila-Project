@@ -25,22 +25,31 @@ export interface ISensorResult {
 }
 
 export interface ISensorRepositories {
-  // CREATE
   create(body: Sensor): Promise<Sensor>;
 
-  // UPDATE
   update(id: string, data: Partial<Sensor>): Promise<void>;
 
-  // DELETE
-  delete(id: string): Promise<void>;
+  deleteByUserId(user_id: string): Promise<void>;
 
-  // LIST
+  deleteByUserIdAndGroupId(
+    user_id: string,
+    groupIdObject: Types.ObjectId
+  ): Promise<void>;
+
+  deleteByUserIdAndSensorId(
+    user_id: string,
+    sensorIdObject: Types.ObjectId
+  ): Promise<void>;
+
   findAll(limit: number, offset: number): Promise<Sensor[]>;
+
   findCollectionByUserId(user_id: string): Promise<Sensor[]>;
+
   findGroupsByUserIdAndGroupId(
     user_id: string,
     groupIdObject: Types.ObjectId
   ): Promise<ISensorGroupResult[]>;
+
   findSensorByUserIdAndSensorId(
     user_id: string,
     sensorIdObject: Types.ObjectId

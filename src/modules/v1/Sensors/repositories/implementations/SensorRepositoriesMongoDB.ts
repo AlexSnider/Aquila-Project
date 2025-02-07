@@ -13,8 +13,28 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
     await SensorSchema.findByIdAndUpdate(id, data, { new: true });
   }
 
-  async delete(id: string): Promise<void> {
-    await SensorSchema.findByIdAndDelete(id);
+  async deleteByUserId(user_id: string): Promise<void> {
+    await SensorSchema.deleteMany({ user_id });
+  }
+
+  async deleteByUserIdAndGroupId(
+    user_id: string,
+    groupIdObject: Types.ObjectId
+  ): Promise<void> {
+    await SensorSchema.updateMany(
+      { user_id, "sensor_groups._id": groupIdObject },
+      { $pull: { sensor_groups: { _id: groupIdObject } } }
+    );
+  }
+
+  async deleteByUserIdAndSensorId(
+    user_id: string,
+    sensorIdObject: Types.ObjectId
+  ): Promise<void> {
+    await SensorSchema.updateMany(
+      { user_id, "sensor_groups.sensors._id": sensorIdObject },
+      { $pull: { "sensor_groups.$[].sensors": { _id: sensorIdObject } } }
+    );
   }
 
   async findAll(limit: number, offset: number): Promise<Sensor[]> {
