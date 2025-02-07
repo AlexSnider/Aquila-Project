@@ -57,8 +57,8 @@ Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
 - Documentação com [Swagger Annotations](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/docs/swaggerConfig.ts);
 - Testes de [Integração](https://github.com/AlexSnider/Aquila-Project/tree/develop/__tests__/integration/sensors);
 
-#### Dados na coleção do MongoDB Atlas
-![image](https://github.com/user-attachments/assets/2d0ee97c-b2ba-46ee-8e65-b00214d003f9)
+#### Dados na coleção do MongoDB - Estrutura
+![image](https://github.com/user-attachments/assets/3a6ea3e4-41e1-4868-8c76-293668755b32)
 >**Nota 2:** user_id representa o id de um usuário (futura implementação com KeyCloak).
 
 ## 💡 A fazer
