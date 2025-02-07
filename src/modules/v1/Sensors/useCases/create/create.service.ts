@@ -1,12 +1,16 @@
-import { ConflictError } from "../../../../../helpers/errors/apiErrors";
 import { Sensor } from "../../entities/Sensor";
 import { ISensorRepositories } from "../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
 
 interface ICreateSensorRequest {
-  sensor_name: string;
   user_id: string;
-  location: { type: "Point"; coordinates: [number, number] };
+  sensor_groups: {
+    sensor_group_name: string;
+    sensors: {
+      sensor_name: string;
+      location: { type: "Point"; coordinates: [number, number] };
+    }[];
+  }[];
 }
 
 @injectable()
@@ -17,22 +21,17 @@ export class CreateService {
   ) {}
 
   async execute(body: ICreateSensorRequest): Promise<Sensor> {
-    const sensorExists = await this.sensorRepository.findByName(
-      body.sensor_name
-    );
-
-    if (sensorExists) {
-      throw new ConflictError("Sensor already exists");
-    }
-
-    const sensorData = new Sensor({
-      sensor_name: body.sensor_name,
+    const sensorDocument = new Sensor({
       user_id: body.user_id,
-      location: body.location,
+      sensor_groups: body.sensor_groups,
     });
 
-    await this.sensorRepository.create(sensorData);
+    const createSensor = await this.sensorRepository.create(sensorDocument);
 
-    return sensorData;
+    if (!createSensor) {
+      throw new Error("Error creating sensor");
+    }
+
+    return sensorDocument;
   }
 }
