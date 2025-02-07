@@ -7,8 +7,10 @@ import findCollectionByUserIdController from "../../../modules/v1/Sensors/useCas
 import findGroupsByUserIdAndGroupIdController from "src/modules/v1/Sensors/useCases/find/findGroupsByUserIdAndGroupId/findGroupsByUserIdAndGroupId.controller";
 import findSensorByUserIdAndSensorIdController from "src/modules/v1/Sensors/useCases/find/findSensorByUserIdAndSensorId/findSensorByUserIdAndSensorId.controller";
 import updateSensorController from "../../../modules/v1/Sensors/useCases/update/updateSensor.controller";
-import deleteSensorController from "../../../modules/v1/Sensors/useCases/delete/deleteSensor.controller";
 import validadeSchema from "../../../middleware/schemaValidationMiddleware";
+import deleteByUserIdController from "src/modules/v1/Sensors/useCases/delete/deleteByUserId/deleteByUserId.controller";
+import deleteByUserIdAndGroupIdController from "src/modules/v1/Sensors/useCases/delete/deleteByUserIdAndGroupId/deleteByUserIdAndGroupId.controller";
+import deleteByUserIdAndSensorIdController from "src/modules/v1/Sensors/useCases/delete/deleteByUserIdAndSensorId/deleteByUserIdAndSensorId.controller";
 
 const sensorRoutes = Router();
 
@@ -38,7 +40,18 @@ sensorRoutes.get(
   findSensorByUserIdAndSensorIdController.handle
 );
 
+sensorRoutes.delete("/:user_id", deleteByUserIdController.handle);
+
+sensorRoutes.delete(
+  "/user_id/:user_id/group-id/:_id",
+  deleteByUserIdAndGroupIdController.handle
+);
+
+sensorRoutes.delete(
+  "/user_id/:user_id/sensor-id/:_id",
+  deleteByUserIdAndSensorIdController.handle
+);
+
 sensorRoutes.patch("/update/:id", updateSensorController.handle);
-sensorRoutes.delete("/delete/:id", deleteSensorController.handle);
 
 export default sensorRoutes;
