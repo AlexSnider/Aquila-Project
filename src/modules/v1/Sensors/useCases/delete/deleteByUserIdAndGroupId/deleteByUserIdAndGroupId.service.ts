@@ -16,8 +16,6 @@ export class DeleteByUserIdAndGroupIdService {
       groupIdObject
     );
 
-    console.log("passei aqui");
-
     if (!sensor || sensor.length === 0) {
       throw new NotFoundError("Group not found");
     }
