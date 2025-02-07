@@ -17,6 +17,7 @@ class findGroupsByUserIdAndGroupIdController {
       user_id,
       groupIdObject
     );
+    
     return response.status(200).json(sensor);
   }
 }
