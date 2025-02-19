@@ -7,7 +7,9 @@ class findAllController {
     const { limit, offset } = response.locals.pagination;
 
     const findAllService = container.resolve(FindAllService);
+
     const sensors = await findAllService.execute(limit, offset);
+    
     return response.status(200).json(sensors);
   }
 }

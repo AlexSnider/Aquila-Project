@@ -21,15 +21,16 @@ export async function initApp(): Promise<Express> {
   } else {
     await ConnectToMongoDatabase.execute();
   }
+  
   return Promise.resolve(app);
 }
 
 export async function close(): Promise<void> {
   if (process.env.NODE_ENV === "test") {
     await ConnectToTestDatabase.disconnect();
-  } else {
-    await ConnectToMongoDatabase.disconnect();
   }
+
+  return await ConnectToMongoDatabase.disconnect();
 }
 
 export default app;
