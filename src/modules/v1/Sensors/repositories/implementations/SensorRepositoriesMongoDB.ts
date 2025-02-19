@@ -1,16 +1,12 @@
 import { Sensor } from "../../entities/Sensor";
+import { Types } from "mongoose";
 import { ISensorRepositories, ISensorResult } from "../ISensorRepositories";
 import SensorSchema from "../../schemas/SensorSchema";
-import { Types } from "mongoose";
 
 export class SensorRepositoriesMongoDB implements ISensorRepositories {
   async create(body: Sensor): Promise<Sensor> {
     const createdSensor = await SensorSchema.create(body);
     return createdSensor;
-  }
-
-  async update(id: string, data: Partial<Sensor>): Promise<void> {
-    await SensorSchema.findByIdAndUpdate(id, data, { new: true });
   }
 
   async deleteByUserId(user_id: string): Promise<void> {
@@ -108,5 +104,102 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
     ]);
 
     return sensors.map((item) => item.sensor_groups.sensors);
+  }
+
+  async groupNameExists(
+    user_id: string,
+    sensor_group_name: string
+  ): Promise<boolean> {
+    const exists = await SensorSchema.exists({
+      user_id,
+      "sensor_groups.sensor_group_name": sensor_group_name,
+    });
+
+    return !!exists;
+  }
+
+  async sensorNameExists(
+    user_id: string,
+    sensor_name: string
+  ): Promise<boolean> {
+    const exists = await SensorSchema.exists({
+      user_id,
+      "sensor_groups.sensors.sensor_name": sensor_name,
+    });
+
+    return !!exists;
+  }
+
+  async updateGroupName(
+    user_id: string,
+    group_id: Types.ObjectId,
+    new_group_name: string
+  ): Promise<void> {
+    await SensorSchema.findOneAndUpdate(
+      { user_id, "sensor_groups._id": group_id },
+      { $set: { "sensor_groups.$.sensor_group_name": new_group_name } }
+    );
+  }
+
+  async updateSensorData(
+    user_id: string,
+    sensor_id: Types.ObjectId,
+    new_sensor_name: string,
+    new_coordinates: { coordinates: [number, number] }
+  ): Promise<void> {
+    await SensorSchema.findOneAndUpdate(
+      { user_id, "sensor_groups.sensors._id": sensor_id },
+      {
+        $set: {
+          "sensor_groups.$.sensors.$[sensor].sensor_name": new_sensor_name,
+          "sensor_groups.$.sensors.$[sensor].location": {
+            type: "Point",
+            coordinates: new_coordinates.coordinates,
+          },
+        },
+      },
+      {
+        arrayFilters: [{ "sensor._id": sensor_id }],
+      }
+    );
+  }
+
+  async insertGroupByUserId(
+    user_id: string,
+    sensor_group_name: string
+  ): Promise<void> {
+    await SensorSchema.findOneAndUpdate(
+      { user_id },
+      {
+        $push: {
+          sensor_groups: {
+            sensor_group_name: sensor_group_name,
+            sensors: [],
+          },
+        },
+      }
+    );
+  }
+
+  async insertSensorData(
+    user_id: string,
+    groupIdObject: Types.ObjectId,
+    sensor_name: string,
+    coordinates: { coordinates: [number, number] }
+  ): Promise<void> {
+    await SensorSchema.findOneAndUpdate(
+      { user_id, "sensor_groups._id": groupIdObject },
+      {
+        $push: {
+          "sensor_groups.$.sensors": {
+            sensor_name: sensor_name,
+            location: {
+              type: "Point",
+              coordinates: coordinates.coordinates,
+            },
+          },
+        },
+      }
+    );
   }
 }
