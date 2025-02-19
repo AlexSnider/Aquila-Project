@@ -1,5 +1,6 @@
 import { GenericContainer, StartedTestContainer } from "testcontainers";
 import mongoose from "mongoose";
+import SensorSchema from "src/modules/v1/Sensors/schemas/SensorSchema";
 
 class ConnectToTestDatabase {
   private mongoContainer: StartedTestContainer | null = null;
@@ -25,6 +26,7 @@ class ConnectToTestDatabase {
 
   async disconnect() {
     if (this.mongoContainer) {
+      await SensorSchema.deleteMany({});
       await mongoose.disconnect();
       await this.mongoContainer.stop();
       console.log("Test Container Down.");
