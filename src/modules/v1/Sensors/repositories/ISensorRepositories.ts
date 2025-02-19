@@ -27,8 +27,6 @@ export interface ISensorResult {
 export interface ISensorRepositories {
   create(body: Sensor): Promise<Sensor>;
 
-  update(id: string, data: Partial<Sensor>): Promise<void>;
-
   deleteByUserId(user_id: string): Promise<void>;
 
   deleteByUserIdAndGroupId(
@@ -54,4 +52,33 @@ export interface ISensorRepositories {
     user_id: string,
     sensorIdObject: Types.ObjectId
   ): Promise<ISensorResult[]>;
+
+  groupNameExists(user_id: string, sensor_group_name: string): Promise<boolean>;
+
+  sensorNameExists(user_id: string, sensor_name: string): Promise<boolean>;
+
+  updateGroupName(
+    user_id: string,
+    group_id: Types.ObjectId,
+    new_group_name: string
+  ): Promise<void>;
+
+  updateSensorData(
+    user_id: string,
+    sensor_id: Types.ObjectId,
+    new_sensor_name: string,
+    new_coordinates: { coordinates: [number, number] }
+  ): Promise<void>;
+
+  insertGroupByUserId(
+    user_id: string,
+    sensor_group_name: string
+  ): Promise<void>;
+
+  insertSensorData(
+    user_id: string,
+    groupIdObject: Types.ObjectId,
+    sensor_name: string,
+    coordinates: { coordinates: [number, number] }
+  ): Promise<void>;
 }
