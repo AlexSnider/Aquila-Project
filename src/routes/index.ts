@@ -8,6 +8,6 @@ const router = Router();
 
 router.use("/api-docs", corsMiddleware.execute, DocsRoute);
 router.use("/health-check", corsMiddleware.execute, healthCheckRoute);
-router.use("/api/v1", corsMiddleware.execute, sensorRoutes);
+router.use("/api/v1/sensors", corsMiddleware.execute, sensorRoutes);
 
 export default router;
