@@ -6,13 +6,16 @@ import { DeleteByUserIdAndSensorIdService } from "./deleteByUserIdAndSensorId.se
 class DeleteByUserIdAndSensorIdController {
   async handle(request: Request, response: Response): Promise<Response> {
     const user_id = request.params.user_id;
+
     const sensor_id = request.params._id;
 
     const sensorIdObjectId = new Types.ObjectId(sensor_id);
 
     const deleteService = container.resolve(DeleteByUserIdAndSensorIdService);
+
     await deleteService.execute(user_id, sensorIdObjectId);
-    return response.sendStatus(204);
+
+    return response.status(204).send();
   }
 }
 

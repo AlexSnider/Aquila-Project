@@ -10,7 +10,7 @@ class deleteByUserIdController {
 
     await deleteByUserId.execute(user_id);
 
-    return response.sendStatus(204);
+    return response.status(204).send();
   }
 }
 

@@ -13,7 +13,7 @@ export class DeleteByUserIdService {
     const sensor = await this.sensorRepository.findCollectionByUserId(user_id);
 
     if (!sensor || sensor.length === 0) {
-      throw new NotFoundError("Collection not found");
+      throw new NotFoundError("Sensors collection not found");
     }
 
     await this.sensorRepository.deleteByUserId(user_id);
