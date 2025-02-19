@@ -12,9 +12,11 @@ export class FindAllService {
 
   async execute(limit: number, offset: number): Promise<Sensor[]> {
     const sensors = await this.sensorRepository.findAll(limit, offset);
+
     if (sensors.length === 0) {
-      throw new NotFoundError("No collections found");
+      throw new NotFoundError("No sensors collections found");
     }
+
     return sensors;
   }
 }

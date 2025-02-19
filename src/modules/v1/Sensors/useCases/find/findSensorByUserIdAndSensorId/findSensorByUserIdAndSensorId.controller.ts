@@ -6,6 +6,7 @@ import { FindSensorByUserIdAndSensorIdService } from "./findSensorByUserIdAndSen
 class findSensorByUserIdAndSensorIdController {
   async handle(request: Request, response: Response): Promise<Response> {
     const user_id = request.params.user_id;
+
     const sensorId = request.params._id;
 
     const sensorIdObject = new Types.ObjectId(sensorId);
@@ -13,10 +14,12 @@ class findSensorByUserIdAndSensorIdController {
     const findSensorByUserIdAndSensorId = container.resolve(
       FindSensorByUserIdAndSensorIdService
     );
+
     const sensor = await findSensorByUserIdAndSensorId.execute(
       user_id,
       sensorIdObject
     );
+    
     return response.status(200).json(sensor);
   }
 }

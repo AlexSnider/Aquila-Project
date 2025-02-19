@@ -14,7 +14,7 @@ export class findCollectionByUserIdSerivice {
     const sensor = await this.sensorRepository.findCollectionByUserId(user_id);
 
     if (!sensor || sensor.length === 0) {
-      throw new NotFoundError("No sensors found");
+      throw new NotFoundError("No sensors collections found");
     }
 
     return sensor;
