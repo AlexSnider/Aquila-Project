@@ -46,7 +46,7 @@ Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
  - Stataless: Cada requisição contém todas as informações necessárias, sem depender do estado de requisições anteriores
 
 ## 🚀 Partes já concluídas
-### Back-End
+### Back-End (em reestruturação para a versão 2.0)
 - Containers necessários para a aplicação;
 - [Conexão](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database) com banco de dados separados (produção e testes);
 - [Casos de uso](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/modules/v1/Sensors/useCases) pertinentes;
@@ -57,7 +57,7 @@ Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
 - Documentação com [Swagger Annotations](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/docs/swaggerConfig.ts);
 - Testes de [Integração](https://github.com/AlexSnider/Aquila-Project/tree/develop/__tests__/integration/sensors);
 
-#### Dados na coleção do MongoDB - Estrutura
+#### Dados na coleção do MongoDB - Estrutura (2.0)
 ![image](https://github.com/user-attachments/assets/3a6ea3e4-41e1-4868-8c76-293668755b32)
 >**Nota 2:** user_id representa o id de um usuário (futura implementação com KeyCloak).
 
