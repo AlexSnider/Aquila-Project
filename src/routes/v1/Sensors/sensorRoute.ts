@@ -4,21 +4,21 @@ import {
   SensorGroupSchemaJoi,
   SensorInsertDataSchemaJoi,
   SensorSchemaJoi,
-} from "../../../modules/v1/Sensors/schemas/joi/SensorSchemajoi";
+} from "../../../modules/v1/Sensors/schemas/joi/SensorSchemaJoi";
 import createController from "../../../modules/v1/Sensors/useCases/create/createNewSensor.controller";
 import paginationMiddleware from "../../../middleware/paginationMiddleware";
 import findAllController from "../../../modules/v1/Sensors/useCases/find/findAll/findAll.controller";
 import findCollectionByUserIdController from "../../../modules/v1/Sensors/useCases/find/findCollectionByUserId/findCollectionByUserId.controller";
-import findGroupsByUserIdAndGroupIdController from "src/modules/v1/Sensors/useCases/find/findGroupsByUserIdAndGroupId/findGroupsByUserIdAndGroupId.controller";
-import findSensorByUserIdAndSensorIdController from "src/modules/v1/Sensors/useCases/find/findSensorByUserIdAndSensorId/findSensorByUserIdAndSensorId.controller";
+import findGroupsByUserIdAndGroupIdController from "../../../modules/v1/Sensors/useCases/find/findGroupsByUserIdAndGroupId/findGroupsByUserIdAndGroupId.controller";
+import findSensorByUserIdAndSensorIdController from "../../../modules/v1/Sensors/useCases/find/findSensorByUserIdAndSensorId/findSensorByUserIdAndSensorId.controller";
 import validadeSchema from "../../../middleware/schemaValidationMiddleware";
-import deleteByUserIdController from "src/modules/v1/Sensors/useCases/delete/deleteByUserId/deleteByUserId.controller";
-import deleteByUserIdAndGroupIdController from "src/modules/v1/Sensors/useCases/delete/deleteByUserIdAndGroupId/deleteByUserIdAndGroupId.controller";
-import deleteByUserIdAndSensorIdController from "src/modules/v1/Sensors/useCases/delete/deleteByUserIdAndSensorId/deleteByUserIdAndSensorId.controller";
-import updateGroupNameController from "src/modules/v1/Sensors/useCases/update/updateGroupNameByUserId/updateGroupNameByUserId.controller";
-import updateSensorDataController from "src/modules/v1/Sensors/useCases/update/updateSensorDataByUserId/updateSensorDataByUserId.controller";
-import insertGroupByUserIdController from "src/modules/v1/Sensors/useCases/update/insertGroupByUserId/insertGroupByUserId.controller";
-import insertSensorByUserIdController from "src/modules/v1/Sensors/useCases/update/insertSensorByUserId/insertSensorByUserId.controller";
+import deleteByUserIdController from "../../../modules/v1/Sensors/useCases/delete/deleteByUserId/deleteByUserId.controller";
+import deleteByUserIdAndGroupIdController from "../../../modules/v1/Sensors/useCases/delete/deleteByUserIdAndGroupId/deleteByUserIdAndGroupId.controller";
+import deleteByUserIdAndSensorIdController from "../../../modules/v1/Sensors/useCases/delete/deleteByUserIdAndSensorId/deleteByUserIdAndSensorId.controller";
+import updateGroupNameController from "../../../modules/v1/Sensors/useCases/update/updateGroupNameByUserId/updateGroupNameByUserId.controller"; // src/modules/v1/Sensors/useCases/update/updateGroupNameByUserId/updateGroupNameByUserId.controller";
+import updateSensorDataController from "../../../modules/v1/Sensors/useCases/update/updateSensorDataByUserId/updateSensorDataByUserId.controller"; // src/modules/v1/Sensors/useCases/update/updateSensorDataByUserId/updateSensorDataByUserId.controller";
+import insertGroupByUserIdController from "../../../modules/v1/Sensors/useCases/update/insertGroupByUserId/insertGroupByUserId.controller";
+import insertSensorByUserIdController from "../../../modules/v1/Sensors/useCases/update/insertSensorByUserId/insertSensorByUserId.controller";
 
 const sensorRoutes = Router();
 
