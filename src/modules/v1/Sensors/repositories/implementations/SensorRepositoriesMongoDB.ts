@@ -2,6 +2,7 @@ import { Sensor } from "../../entities/Sensor";
 import { Types } from "mongoose";
 import { ISensorRepositories, ISensorResult } from "../ISensorRepositories";
 import SensorSchema from "../../schemas/SensorSchema";
+import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 export class SensorRepositoriesMongoDB implements ISensorRepositories {
   async create(body: Sensor): Promise<Sensor> {
@@ -9,12 +10,12 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
     return createdSensor;
   }
 
-  async deleteByUserId(user_id: string): Promise<void> {
+  async deleteByUserId(user_id: UUIDTypes): Promise<void> {
     await SensorSchema.deleteMany({ user_id });
   }
 
   async deleteByUserIdAndGroupId(
-    user_id: string,
+    user_id: UUIDTypes,
     groupIdObject: Types.ObjectId
   ): Promise<void> {
     await SensorSchema.updateMany(
@@ -24,7 +25,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
   }
 
   async deleteByUserIdAndSensorId(
-    user_id: string,
+    user_id: UUIDTypes,
     sensorIdObject: Types.ObjectId
   ): Promise<void> {
     await SensorSchema.updateMany(
@@ -41,13 +42,13 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
     return sensors;
   }
 
-  async findCollectionByUserId(user_id: string): Promise<Sensor[]> {
+  async findCollectionByUserId(user_id: UUIDTypes): Promise<Sensor[]> {
     const sensors = await SensorSchema.find({ user_id }).select("-__v");
     return sensors;
   }
 
   async findGroupsByUserIdAndGroupId(
-    user_id: string,
+    user_id: UUIDTypes,
     groupIdObject: Types.ObjectId
   ): Promise<Sensor[]> {
     const sensors = await SensorSchema.aggregate([
@@ -74,7 +75,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
   }
 
   async findSensorByUserIdAndSensorId(
-    user_id: string,
+    user_id: UUIDTypes,
     sensorIdObject: Types.ObjectId
   ): Promise<ISensorResult[]> {
     const sensors = await SensorSchema.aggregate([
@@ -107,7 +108,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
   }
 
   async groupNameExists(
-    user_id: string,
+    user_id: UUIDTypes,
     sensor_group_name: string
   ): Promise<boolean> {
     const exists = await SensorSchema.exists({
@@ -119,7 +120,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
   }
 
   async sensorNameExists(
-    user_id: string,
+    user_id: UUIDTypes,
     sensor_name: string
   ): Promise<boolean> {
     const exists = await SensorSchema.exists({
@@ -131,7 +132,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
   }
 
   async updateGroupName(
-    user_id: string,
+    user_id: UUIDTypes,
     group_id: Types.ObjectId,
     new_group_name: string
   ): Promise<void> {
@@ -142,7 +143,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
   }
 
   async updateSensorData(
-    user_id: string,
+    user_id: UUIDTypes,
     sensor_id: Types.ObjectId,
     new_sensor_name: string,
     new_coordinates: { coordinates: [number, number] }
@@ -165,7 +166,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
   }
 
   async insertGroupByUserId(
-    user_id: string,
+    user_id: UUIDTypes,
     sensor_group_name: string
   ): Promise<void> {
     await SensorSchema.findOneAndUpdate(
@@ -182,7 +183,7 @@ export class SensorRepositoriesMongoDB implements ISensorRepositories {
   }
 
   async insertSensorData(
-    user_id: string,
+    user_id: UUIDTypes,
     groupIdObject: Types.ObjectId,
     sensor_name: string,
     coordinates: { coordinates: [number, number] }

@@ -1,4 +1,5 @@
 import { model, Schema, Types } from "mongoose";
+import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 interface ILocation {
   type: "Point";
@@ -19,7 +20,7 @@ interface ISensorGroup {
 
 interface ISensorDocument {
   _id: Types.ObjectId;
-  user_id: string;
+  user_id: UUIDTypes;
   sensor_groups: ISensorGroup[];
   createdAt: Date;
   updatedAt: Date;
