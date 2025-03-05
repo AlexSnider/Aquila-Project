@@ -11,4 +11,17 @@ module.exports = {
   testMatch: ["<rootDir>/__tests__/**/*.(test|spec).ts"],
   moduleDirectories: ["node_modules", "<rootDir>"],
   setupFilesAfterEnv: ["./__tests__/config/tests.config.ts"],
+  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
+  collectCoverage: true,
+  coverageDirectory: "coverage",
+  coverageReporters: ["text", "html", "lcov"],
+  collectCoverageFrom: [
+    "src/**/*.ts",
+    "!src/**/*.d.ts",
+    "!src/monitoring/health-check/**",
+    "!src/monitoring/metrics/**",
+    "!src/monitoring/health-check/health-check-controller/**",
+    "!src/database/production/**",
+  ],
+  maxWorkers: 2,
 };
