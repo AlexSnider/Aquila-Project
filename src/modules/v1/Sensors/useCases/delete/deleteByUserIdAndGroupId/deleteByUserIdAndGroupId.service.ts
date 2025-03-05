@@ -2,6 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
 import { Types } from "mongoose";
+import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 @injectable()
 export class DeleteByUserIdAndGroupIdService {
@@ -10,13 +11,13 @@ export class DeleteByUserIdAndGroupIdService {
     private sensorRepository: ISensorRepositories
   ) {}
 
-  async execute(user_id: string, groupIdObject: Types.ObjectId): Promise<void> {
-    const sensor = await this.sensorRepository.findGroupsByUserIdAndGroupId(
+  async execute(user_id: UUIDTypes, groupIdObject: Types.ObjectId): Promise<void> {
+    const sensorGroups = await this.sensorRepository.findGroupsByUserIdAndGroupId(
       user_id,
       groupIdObject
     );
 
-    if (!sensor || sensor.length === 0) {
+    if (!sensorGroups || sensorGroups.length === 0) {
       throw new NotFoundError("Group not found");
     }
 

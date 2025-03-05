@@ -1,7 +1,7 @@
 import { injectable, inject } from "tsyringe";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { Sensor } from "../../../entities/Sensor";
-import { NotFoundError } from "src/helpers/errors/apiErrors";
+import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
 
 @injectable()
 export class FindAllService {

@@ -2,7 +2,7 @@ import { inject, injectable } from "tsyringe";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { ISensorGroupResult } from "../../../repositories/ISensorRepositories";
 import { Types } from "mongoose";
-import { NotFoundError } from "src/helpers/errors/apiErrors";
+import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
 
 @injectable()
 export class FindGroupsByUserIdAndGroupIdService {

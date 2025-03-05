@@ -1,10 +1,11 @@
-import { ConflictError, NotFoundError } from "src/helpers/errors/apiErrors";
+import { ConflictError, NotFoundError } from "../../../../../../helpers/errors/apiErrors";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
 import { Types } from "mongoose";
+import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 interface IAddSensorToGroupRequest {
-  user_id: string;
+  user_id: UUIDTypes;
   groupIdObject: Types.ObjectId;
   sensor_name: string;
   coordinates: {
@@ -26,17 +27,17 @@ export class insertSensorByUserIdService {
         body.groupIdObject
       );
 
+    if (!groupExists || groupExists.length === 0) {
+      throw new NotFoundError("Group not found");
+    }
+
     const sensorExists = await this.sensorRepository.sensorNameExists(
       body.user_id,
       body.sensor_name
     );
 
-    if (!groupExists || groupExists.length === 0) {
-      throw new NotFoundError("Group not found");
-    }
-
     if (sensorExists) {
-      throw new ConflictError("Sensor already exists");
+      throw new ConflictError("Sensor name already exists");
     }
 
     await this.sensorRepository.insertSensorData(

@@ -1,10 +1,11 @@
-import { NotFoundError } from "src/helpers/errors/apiErrors";
+import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
 import { Types } from "mongoose";
+import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 interface IUpdateSensorRequest {
-  user_id: string;
+  user_id: UUIDTypes;
   sensor_groups: Array<{ _id: Types.ObjectId; sensor_group_name: string }>;
 }
 

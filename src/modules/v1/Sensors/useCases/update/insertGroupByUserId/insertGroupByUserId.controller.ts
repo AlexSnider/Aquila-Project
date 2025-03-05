@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { insertGroupByUserIdService } from "./insertGroupByUserId.service";
+import { InsertGroupByUserIdService } from "./insertGroupByUserId.service";
 
-class insertGroupByUserIdController {
+class InsertGroupByUserIdController {
   async handle(request: Request, response: Response): Promise<Response> {
     const user_id = request.params.user_id;
     
     const { sensor_group_name } = request.body;
 
-    const insertGroupByUserId = container.resolve(insertGroupByUserIdService);
+    const insertGroupByUserId = container.resolve(InsertGroupByUserIdService);
 
     await insertGroupByUserId.execute({
       user_id,
@@ -19,4 +19,4 @@ class insertGroupByUserIdController {
   }
 }
 
-export default new insertGroupByUserIdController();
+export default new InsertGroupByUserIdController();
