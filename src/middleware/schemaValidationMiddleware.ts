@@ -27,7 +27,7 @@ class ValidateSchema {
           throw new ValidationException(errors);
         }
 
-        return response.status(409).json({ errors });
+        return response.status(400).json({ errors });
       }
 
       return next();
