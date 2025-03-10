@@ -4,7 +4,10 @@ import tseslint from "typescript-eslint";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ["**/*.{js,mjs,cjs,ts}"] },
+  {
+    files: ["**/*.{js,mjs,cjs,ts}"],
+    ignores: ["node_modules/"],
+  },
   { languageOptions: { globals: globals.node } },
   {
     rules: {
@@ -12,7 +15,6 @@ export default [
       "no-unused-vars": "warn",
       "prefer-const": ["warn", { ignoreReadBeforeAssign: true }],
     },
-    ignores: [".node_modules/*"],
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
