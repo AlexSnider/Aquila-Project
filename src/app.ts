@@ -5,7 +5,7 @@ import express, { json, Express } from "express";
 import router from "./routes";
 import mongoose from "mongoose";
 import ConnectToMongoDatabase from "./database/production";
-import errorMiddleware  from "./middleware/errorMiddleware";
+import errorMiddleware from "./middleware/errorMiddleware";
 import corsMiddleware from "./middleware/corsMiddleware";
 
 const app = express();
@@ -25,7 +25,7 @@ export async function initApp(): Promise<Express> {
 
   if (mongoUrl) {
     console.log("Using Test Database...");
-    await mongoose.connect(mongoUrl as string);
+    await mongoose.connect(mongoUrl);
   }
 
   return app;
