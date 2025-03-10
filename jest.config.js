@@ -13,8 +13,8 @@ module.exports = {
   setupFilesAfterEnv: ["./__tests__/config/tests.config.ts"],
   moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
   collectCoverage: true,
-  coverageDirectory: "coverage",
-  coverageReporters: ["text", "html", "lcov"],
+  coverageDirectory: "./coverage",
+  coverageReporters: ["json", "lcov", "text", "html"],
   collectCoverageFrom: [
     "src/**/*.ts",
     "!src/**/*.d.ts",
