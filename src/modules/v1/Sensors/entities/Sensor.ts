@@ -1,9 +1,8 @@
 import { Types } from "mongoose";
-import { UUIDTypes } from "uuid";
 
 export class Sensor {
   _id: Types.ObjectId;
-  user_id: UUIDTypes;
+  user_id: string;
   sensor_groups: {
     _id: Types.ObjectId;
     sensor_group_name: string;
@@ -20,7 +19,7 @@ export class Sensor {
   updatedAt: Date;
 
   constructor(data: {
-    user_id: UUIDTypes;
+    user_id: string;
     sensor_groups: {
       sensor_group_name: string;
       sensors: {

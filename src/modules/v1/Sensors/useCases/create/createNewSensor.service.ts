@@ -5,10 +5,9 @@ import {
 import { Sensor } from "../../entities/Sensor";
 import { ISensorRepositories } from "../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
-import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 interface ICreateSensorRequest {
-  user_id: UUIDTypes;
+  user_id: string;
   sensor_groups: {
     sensor_group_name: string;
     sensors: {
@@ -22,7 +21,7 @@ interface ICreateSensorRequest {
 export class CreateNewSensorService {
   constructor(
     @inject("SensorRepositories")
-    private sensorRepository: ISensorRepositories
+    private readonly sensorRepository: ISensorRepositories
   ) {}
 
   async execute(body: ICreateSensorRequest): Promise<Sensor> {

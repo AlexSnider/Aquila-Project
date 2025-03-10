@@ -2,16 +2,15 @@ import { inject, injectable } from "tsyringe";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { Sensor } from "../../../entities/Sensor";
 import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
-import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 @injectable()
-export class findCollectionByUserIdSerivice {
+export class FindCollectionByUserIdSerivice {
   constructor(
     @inject("SensorRepositories")
-    private sensorRepository: ISensorRepositories
+    private readonly sensorRepository: ISensorRepositories
   ) {}
 
-  async execute(user_id: UUIDTypes): Promise<Sensor[]> {
+  async execute(user_id: string): Promise<Sensor[]> {
     const sensor = await this.sensorRepository.findCollectionByUserId(user_id);
 
     if (!sensor || sensor.length === 0) {

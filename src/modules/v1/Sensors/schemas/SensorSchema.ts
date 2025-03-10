@@ -1,5 +1,4 @@
 import { model, Schema, Types } from "mongoose";
-import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 interface ILocation {
   type: "Point";
@@ -20,7 +19,7 @@ interface ISensorGroup {
 
 interface ISensorDocument {
   _id: Types.ObjectId;
-  user_id: UUIDTypes;
+  user_id: string;
   sensor_groups: ISensorGroup[];
   createdAt: Date;
   updatedAt: Date;
@@ -73,12 +72,6 @@ const SensorGroupSchema = new Schema<ISensorGroup>(
     sensors: {
       type: [SensorSchema],
       required: true,
-      validate: {
-        validator: function (v: ISensor[]) {
-          return v.length <= 25;
-        },
-        message: "Maximum of 25 sensors per group.",
-      },
     },
   },
   { _id: false }
@@ -93,12 +86,6 @@ const SensorDocumentSchema = new Schema<ISensorDocument>(
     sensor_groups: {
       type: [SensorGroupSchema],
       required: true,
-      validate: {
-        validator: function (v: ISensorGroup[]) {
-          return v.length <= 10;
-        },
-        message: "Maximum of 10 sensor groups per user.",
-      },
     },
   },
   { timestamps: true }

@@ -1,14 +1,13 @@
 import { inject, injectable } from "tsyringe";
-import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
-import { ISensorGroupResult } from "../../../repositories/ISensorRepositories";
-import { Types } from "mongoose";
+import { ISensorGroupResult, ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
+import { Types } from "mongoose";
 
 @injectable()
 export class FindGroupsByUserIdAndGroupIdService {
   constructor(
     @inject("SensorRepositories")
-    private sensorRepository: ISensorRepositories
+    private readonly sensorRepository: ISensorRepositories
   ) {}
 
   async execute(

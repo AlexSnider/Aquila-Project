@@ -7,7 +7,7 @@ import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
 export class FindAllService {
   constructor(
     @inject("SensorRepositories")
-    private sensorRepository: ISensorRepositories
+    private readonly sensorRepository: ISensorRepositories
   ) {}
 
   async execute(limit: number, offset: number): Promise<Sensor[]> {

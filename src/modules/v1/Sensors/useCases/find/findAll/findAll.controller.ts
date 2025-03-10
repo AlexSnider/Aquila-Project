@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { FindAllService } from "./findAll.service";
 
-class findAllController {
+class FindAllController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { limit, offset } = response.locals.pagination;
 
@@ -14,4 +14,4 @@ class findAllController {
   }
 }
 
-export default new findAllController();
+export default new FindAllController();

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { insertSensorByUserIdService } from "./insertSensorByUserId.service";
+import { InsertSensorByUserIdService } from "./insertSensorByUserId.service";
 import { Types } from "mongoose";
 
 class InsertSensorDataByUserIdController {
@@ -13,7 +13,7 @@ class InsertSensorDataByUserIdController {
 
     const groupIdObject = new Types.ObjectId(group_id);
 
-    const insertSensorByUserId = container.resolve(insertSensorByUserIdService);
+    const insertSensorByUserId = container.resolve(InsertSensorByUserIdService);
 
     await insertSensorByUserId.execute({
       user_id,

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { Types } from "mongoose";
 import { FindSensorByUserIdAndSensorIdService } from "./findSensorByUserIdAndSensorId.service";
 
-class findSensorByUserIdAndSensorIdController {
+class FindSensorByUserIdAndSensorIdController {
   async handle(request: Request, response: Response): Promise<Response> {
     const user_id = request.params.user_id;
 
@@ -24,4 +24,4 @@ class findSensorByUserIdAndSensorIdController {
   }
 }
 
-export default new findSensorByUserIdAndSensorIdController();
+export default new FindSensorByUserIdAndSensorIdController();

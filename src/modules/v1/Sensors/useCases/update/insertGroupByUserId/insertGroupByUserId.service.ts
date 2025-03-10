@@ -1,10 +1,9 @@
 import { ConflictError, NotFoundError } from "../../../../../../helpers/errors/apiErrors";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
-import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 interface IAddGroupToGroupRequest {
-  user_id: UUIDTypes;
+  user_id: string;
   sensor_groups: { sensor_group_name: string }[];
 }
 
@@ -12,7 +11,7 @@ interface IAddGroupToGroupRequest {
 export class InsertGroupByUserIdService {
   constructor(
     @inject("SensorRepositories")
-    private sensorRepository: ISensorRepositories
+    private readonly sensorRepository: ISensorRepositories
   ) {}
 
   async execute(body: IAddGroupToGroupRequest): Promise<void> {

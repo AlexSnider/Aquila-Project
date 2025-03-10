@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { FindGroupsByUserIdAndGroupIdService } from "./findGroupsByUserIdAndGroupId.service";
 import { Types } from "mongoose";
 
-class findGroupsByUserIdAndGroupIdController {
+class FindGroupsByUserIdAndGroupIdController {
   async handle(request: Request, response: Response): Promise<Response> {
     const user_id = request.params.user_id;
 
@@ -24,4 +24,4 @@ class findGroupsByUserIdAndGroupIdController {
   }
 }
 
-export default new findGroupsByUserIdAndGroupIdController();
+export default new FindGroupsByUserIdAndGroupIdController();

@@ -10,7 +10,7 @@ import { Types } from "mongoose";
 export class FindSensorByUserIdAndSensorIdService {
   constructor(
     @inject("SensorRepositories")
-    private sensorRepository: ISensorRepositories
+    private readonly sensorRepository: ISensorRepositories
   ) {}
 
   async execute(

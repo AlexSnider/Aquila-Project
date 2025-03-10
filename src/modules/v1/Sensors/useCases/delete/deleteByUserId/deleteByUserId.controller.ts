@@ -2,7 +2,7 @@ import { container } from "tsyringe";
 import { Request, Response } from "express";
 import { DeleteByUserIdService } from "./deleteByUserId.service";
 
-class deleteByUserIdController {
+class DeleteByUserIdController {
   async handle(request: Request, response: Response): Promise<Response> {
     const user_id = request.params.user_id;
 
@@ -14,4 +14,4 @@ class deleteByUserIdController {
   }
 }
 
-export default new deleteByUserIdController();
+export default new DeleteByUserIdController();

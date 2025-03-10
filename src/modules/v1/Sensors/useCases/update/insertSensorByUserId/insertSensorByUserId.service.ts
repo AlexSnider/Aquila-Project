@@ -2,10 +2,9 @@ import { ConflictError, NotFoundError } from "../../../../../../helpers/errors/a
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
 import { Types } from "mongoose";
-import { UUIDTypes } from "node_modules/uuid/dist/cjs";
 
 interface IAddSensorToGroupRequest {
-  user_id: UUIDTypes;
+  user_id: string;
   groupIdObject: Types.ObjectId;
   sensor_name: string;
   coordinates: {
@@ -14,10 +13,10 @@ interface IAddSensorToGroupRequest {
 }
 
 @injectable()
-export class insertSensorByUserIdService {
+export class InsertSensorByUserIdService {
   constructor(
     @inject("SensorRepositories")
-    private sensorRepository: ISensorRepositories
+    private readonly sensorRepository: ISensorRepositories
   ) {}
 
   async execute(body: IAddSensorToGroupRequest): Promise<void> {

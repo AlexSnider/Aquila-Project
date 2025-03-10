@@ -1,13 +1,13 @@
 import { container } from "tsyringe";
 import { Request, Response } from "express";
-import { findCollectionByUserIdSerivice } from "./findCollectionByUserId.service";
+import { FindCollectionByUserIdSerivice } from "./findCollectionByUserId.service";
 
-class findCollectionByUserIdController {
+class FindCollectionByUserIdController {
   async handle(request: Request, response: Response): Promise<Response> {
     const user_id = request.params.id;
 
     const findCollectionByUserId = container.resolve(
-      findCollectionByUserIdSerivice
+      FindCollectionByUserIdSerivice
     );
 
     const sensor = await findCollectionByUserId.execute(user_id);
@@ -16,4 +16,4 @@ class findCollectionByUserIdController {
   }
 }
 
-export default new findCollectionByUserIdController();
+export default new FindCollectionByUserIdController();
