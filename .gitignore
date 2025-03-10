@@ -1,3 +1,7 @@
 /node_modules
 .env
 .vscode
+coverage
+secrets.env
+bin
+Dockerfile.act

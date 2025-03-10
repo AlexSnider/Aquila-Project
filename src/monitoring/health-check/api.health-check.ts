@@ -1,7 +1,7 @@
 import os from "os";
 
 class ApiHealthCheck {
-  async execute(): Promise<any> {
+  async execute(): Promise<unknown> {
     try {
       const memoryUsage = process.memoryUsage();
 
@@ -33,7 +33,7 @@ class ApiHealthCheck {
     return `${hours}h ${minutes}m ${secs}s`;
   }
 
-  formatMemoryUsage(memoryUsage: NodeJS.MemoryUsage): any {
+  formatMemoryUsage(memoryUsage: NodeJS.MemoryUsage): unknown {
     const toMB = (bytes: number) => (bytes / 1024 / 1024).toFixed(2) + " MB";
     return {
       rss: toMB(memoryUsage.rss),

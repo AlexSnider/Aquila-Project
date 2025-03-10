@@ -1,8 +1,8 @@
 name: Aquila Test Project
 
 on:
-  workflow_call: # Chave que permite que este workflow seja chamado de outros workflows
-    inputs: # Você pode definir entradas se necessário
+  workflow_call:
+    inputs:
       some_input:
         required: false
         type: string
@@ -12,34 +12,17 @@ on:
       - develop
       - main
       - release
+    types:
+      - ready_for_review
 
-jobs: # Define os jobs que serão executados em paralelo
-  unit_tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "22.11.0"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Unit Tests
-        run: npm run test:unit
-
+jobs:
   integration_tests:
     runs-on: ubuntu-latest
-    needs: unit_tests # Executa após os testes de unidade
 
     services:
       docker:
         image: docker:20.10.8-dind
-        options: --privileged # Porque é necessário para rodar o Docker dentro de um container
+        options: --privileged
         ports:
           - 2375:2375
         env:
@@ -62,3 +45,22 @@ jobs: # Define os jobs que serão executados em paralelo
 
       - name: Run Integration Tests
         run: npm run test:integration
+
+  unit_tests:
+    runs-on: ubuntu-latest
+    needs: integration_tests
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22.11.0"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Unit Tests
+        run: npm run test:unit
