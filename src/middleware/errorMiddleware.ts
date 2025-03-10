@@ -7,6 +7,7 @@ class ErrorMiddleware {
     error: Error & ApiError,
     _req: Request,
     res: Response,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _next: NextFunction
   ) {
     if ("errors" in error && Array.isArray(error.errors)) {
