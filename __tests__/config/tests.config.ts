@@ -5,6 +5,7 @@ let mongoContainer: StartedTestContainer;
 
 beforeAll(async () => {
   mongoContainer = await new GenericContainer("mongo:latest")
+    .withTmpFs({ "/data/db": "rw,noexec,nosuid,size=64M" })
     .withExposedPorts(27017)
     .start();
 
