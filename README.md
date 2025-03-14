@@ -15,6 +15,9 @@ O [Projeto](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolv
 
 >**Nota 1:** Atualmente o projeto encontra-se em desenvolvimento constante.
 
+## 📝 Wiki do Projeto
+Você pode entender melhor as decisões tomadas no desenvolvimento do projeto através da [Wiki](https://github.com/AlexSnider/Aquila-Project/wiki) do Aquila.
+
 ## 💻 Tecnologias
 Para essa versão do projeto, utilizei (implementarei):
 ### Back-End
@@ -59,13 +62,13 @@ Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
 
 #### Dados na coleção do MongoDB - Estrutura (2.0)
 ![image](https://github.com/user-attachments/assets/3a6ea3e4-41e1-4868-8c76-293668755b32)
->**Nota 2:** user_id representa o id de um usuário (futura implementação com KeyCloak).
+>**Nota 2:** user_id representa o id de um usuário.
 
 ## 💡 A fazer
 Aqui você encontra as [Novidades](https://github.com/users/AlexSnider/projects/3) a serem implementadas.
 
 
->**Nota 3:** A aplicação já teve o seu Deploy efetuado na AWS usando Fargate (em off por motivos financeiros). <br/>
+>**Nota 3:** A aplicação já teve o seu Deploy efetuado na AWS (versão 1.0 sem grupos de sensores) usando Fargate (em off por motivos financeiros). <br/>
 
 ## 🌟 Como usar
 
