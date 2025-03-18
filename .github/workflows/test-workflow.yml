@@ -1,11 +1,20 @@
 name: Aquila Tests
 
 on:
+  workflow_call:
+    inputs:
+      some_input:
+        required: false
+        type: string
+
+on:
   pull_request:
     branches:
       - develop
       - main
       - release
+    types:
+      - ready_for_review
 
 jobs:
   lint_workflow:
