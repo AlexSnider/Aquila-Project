@@ -1,5 +1,11 @@
 name: Aquila Tests
 
+on:
+  workflow_run:
+    workflows: ["Aquila Lint Test"]
+    types:
+      - completed
+
 jobs:
   lint_workflow:
     uses: ./.github/workflows/es-lint-workflow.yml
@@ -25,7 +31,7 @@ jobs:
 
   integration_tests:
     runs-on: ubuntu-latest
-    needs: unit_tests
+    needs: lint_workflow
     services:
       docker:
         image: docker:20.10.8-dind
