@@ -1,12 +1,18 @@
 name: Aquila SonarQube Analysis
 
 on:
-  workflow_run:
-    workflows: ["Aquila Tests"]
+  pull_request:
+    branches:
+      - develop
+      - main
+      - release
     types:
-      - completed
+      - ready_for_review
 
 jobs:
+  integration_tests:
+    uses: ./.github/workflows/test-workflow.yml
+
   sonar:
     runs-on: ubuntu-latest
     needs: integration_tests
