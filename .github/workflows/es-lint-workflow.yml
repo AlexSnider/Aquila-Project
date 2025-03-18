@@ -1,6 +1,12 @@
 name: Aquila Lint Test
 
 on:
+  workflow_call:
+    inputs:
+      some_input:
+        required: false
+        type: string
+
   pull_request:
     branches:
       - develop
