@@ -4,3 +4,4 @@ coverage
 secrets.env
 bin
 .vscode
+.scannerwork
