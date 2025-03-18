@@ -1,10 +1,13 @@
 name: Aquila Tests
 
 on:
-  workflow_run:
-    workflows: ["Aquila Lint Test"]
+  pull_request:
+    branches:
+      - develop
+      - main
+      - release
     types:
-      - completed
+      - ready_for_review
 
 jobs:
   lint_workflow:
