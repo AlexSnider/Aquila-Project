@@ -6,6 +6,8 @@ on:
       - develop
       - main
       - release
+    types:
+      - ready_for_review
 
 jobs:
   integration_tests:
@@ -29,11 +31,13 @@ jobs:
       - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_ORG: ${{ secrets.SONAR_ORG }}
         run: |
           npx sonarqube-scanner \
             -Dsonar.projectKey=Aquila-Project \
+            -Dsonar.organization=${{ secrets.SONAR_ORG }}
             -Dsonar.sources=src \
             -Dsonar.tests=__tests__ \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov-report/lcov.info \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=$SONAR_TOKEN
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
