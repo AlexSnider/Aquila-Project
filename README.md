@@ -8,7 +8,17 @@
   <img src="https://github.com/AlexSnider/Mini-E-commerce-TS-Prisma/assets/103783575/8e1aa77c-ebe0-4b08-8da8-8ecb9fbbe177" alt="OpenTelemetry Icon">
 </p>
 
-<p align="center">All credits to <a href="https://www.jaegertracing.io">Jaeger</a> and <a href="https://opentelemetry.io">OpenTelemetry</a></p>
+<p align="center">All credits to <a href="https://www.jaegertracing.io">Jaeger</a> and <a href="https://opentelemetry.io">OpenTelemetry</a></p><br/>
+
+<div align="center">
+  
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=AlexSnider_Aquila-Project)](https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project)
+
+</div>
+
+<p align="center">Credits to <a href="https://sonarcloud.io/)">SonarQube</a></p><br/>
+
+
 
 ## 👋 Introdução
 O [Projeto](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolvido como parte de uma nova empreitada do [Mentor](https://github.com/vittooh) que lançou o desafio para seus mentorados (*EU*), para que pudesse por em prática as habilidades adiquiridas.
