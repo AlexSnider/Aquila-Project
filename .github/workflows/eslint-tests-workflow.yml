@@ -1,4 +1,4 @@
-name: Aquila EsLint, Tests Workflow and SonarQube Analysis Workflow
+name: Aquila EsLint, Tests and SonarQube Analysis Workflow
 
 on:
   pull_request:
@@ -97,7 +97,7 @@ jobs:
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
         run: |
           npx sonarqube-scanner \
-            -Dsonar.projectKey=Aquila-Project \
+            -Dsonar.projectKey=${{ secrets.SONAR_ORG }} \ \
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.sources=src \
             -Dsonar.tests=__tests__ \
