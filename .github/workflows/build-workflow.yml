@@ -1,4 +1,4 @@
-name: Aquila Build Project
+name: Aquila Build Project Workflow
 
 on:
   push:
