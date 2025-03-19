@@ -7,15 +7,14 @@ export class ApiError extends Error {
   }
 }
 
-export class ConflictError extends ApiError {
-  constructor(message: string) {
-    super(message, 409);
-  }
-}
-
 export class BadRequest extends ApiError {
   constructor(message: string) {
     super(message, 400);
+  }
+}
+export class ConflictError extends ApiError {
+  constructor(message: string) {
+    super(message, 409);
   }
 }
 
@@ -31,14 +30,14 @@ export class UnauthorizedError extends ApiError {
   }
 }
 
-export class DatabaseError extends ApiError {
-  constructor(message: string) {
-    super(message, 409);
-  }
-}
-
 export class ForbiddenError extends ApiError {
   constructor(message: string) {
     super(message, 403);
+  }
+}
+
+export class SensorCreationError extends ApiError {
+  constructor(message: string) {
+    super(message, 500);
   }
 }
