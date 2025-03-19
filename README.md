@@ -16,7 +16,7 @@
 
 </div>
 
-<p align="center">Credits to <a href="https://sonarcloud.io/)">SonarQube</a></p><br/>
+<p align="center">Credits to <a href="https://sonarcloud.io">SonarQube</a></p><br/>
 
 
 
