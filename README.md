@@ -12,7 +12,8 @@
 
 <div align="center">
   
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=AlexSnider_Aquila-Project)](https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=AlexSnider_Aquila-Project)](https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project) <br/>
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AlexSnider_Aquila-Project&metric=coverage)](https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project)
 
 </div>
 
