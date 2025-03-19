@@ -97,8 +97,8 @@ jobs:
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
         run: |
           npx sonarqube-scanner \
-            -Dsonar.projectKey=${{ secrets.SONAR_ORG }} \ \
-            -Dsonar.organization=${{ secrets.SONAR_ORG }} \
+            -Dsonar.projectKey=alexsnider \
+            -Dsonar.organization=alexsnider \
             -Dsonar.sources=src \
             -Dsonar.tests=__tests__ \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov-report/lcov.info \
