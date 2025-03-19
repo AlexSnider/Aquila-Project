@@ -103,4 +103,4 @@ jobs:
             -Dsonar.tests=__tests__ \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov-report/lcov.info \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
