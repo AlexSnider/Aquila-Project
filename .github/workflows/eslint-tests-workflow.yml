@@ -97,7 +97,7 @@ jobs:
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
         run: |
           npx sonarqube-scanner \
-            -Dsonar.projectKey=alexsnider \
+            -Dsonar.projectKey=AlexSnider_Aquila-Project \
             -Dsonar.organization=alexsnider \
             -Dsonar.sources=src \
             -Dsonar.tests=__tests__ \
