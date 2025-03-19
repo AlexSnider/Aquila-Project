@@ -1,12 +1,13 @@
 name: Aquila EsLint, Tests Workflow and SonarQube Analysis Workflow
 
-pull_request:
-  branches:
-    - develop
-    - main
-    - release
-  types:
-    - ready_for_review
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+      - release
+    types:
+      - ready_for_review
 
 jobs:
   lint:
