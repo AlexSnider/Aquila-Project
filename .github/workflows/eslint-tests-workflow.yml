@@ -1,6 +1,11 @@
 name: Aquila EsLint, Tests and SonarQube Analysis Workflow
 
 on:
+  push:
+    branches:
+      - develop
+      - main
+      - release
   pull_request:
     branches:
       - develop
