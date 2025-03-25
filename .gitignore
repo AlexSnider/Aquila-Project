@@ -6,3 +6,6 @@ secrets.env
 bin
 Dockerfile.act
 .scannerwork
+/coverage-integration
+/coverage-unitary
+jest.dev.config.js

@@ -5,3 +5,6 @@ secrets.env
 bin
 .vscode
 .scannerwork
+/coverage-integration
+/coverage-unitary
+jest.dev.config.js
