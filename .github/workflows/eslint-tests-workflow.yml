@@ -36,7 +36,6 @@ jobs:
 
   unit_tests:
     runs-on: ubuntu-latest
-    continue-on-error: true
     needs: lint
     steps:
       - name: Check out code
@@ -57,7 +56,7 @@ jobs:
 
   integration_tests:
     runs-on: ubuntu-latest
-    # needs: unit_tests
+    needs: unit_tests
     services:
       docker:
         image: docker:20.10.8-dind
@@ -107,13 +106,14 @@ jobs:
       - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: ${{ secrets.SONAR_KEY }}
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
         run: |
           npx sonarqube-scanner \
-            -Dsonar.projectKey=AlexSnider_Aquila-Project \
-            -Dsonar.organization=alexsnider \
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+            -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.sources=src \
             -Dsonar.tests=__tests__ \
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov-report/lcov.info \
+            -Dsonar.javascript.lcov.reportPaths=coverage-integration/lcov.info, coverage-unitary/lcov.info \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
