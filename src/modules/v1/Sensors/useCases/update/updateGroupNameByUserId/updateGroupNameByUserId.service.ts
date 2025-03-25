@@ -1,4 +1,7 @@
-import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
+import {
+  NotFoundError,
+  ServerError,
+} from "../../../../../../helpers/errors/apiErrors";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
 import { Types } from "mongoose";
@@ -16,20 +19,27 @@ export class UpdateGroupNameService {
   ) {}
 
   async execute(body: IUpdateSensorRequest): Promise<void> {
-    const groupExists =
-      await this.sensorRepository.findGroupsByUserIdAndGroupId(
+    try {
+      const groupExists =
+        await this.sensorRepository.findGroupsByUserIdAndGroupId(
+          body.user_id,
+          body.sensor_groups[0]._id
+        );
+
+      if (!groupExists || groupExists.length === 0) {
+        throw new NotFoundError("Group not found");
+      }
+
+      await this.sensorRepository.updateGroupName(
         body.user_id,
-        body.sensor_groups[0]._id
+        body.sensor_groups[0]._id,
+        body.sensor_groups[0].sensor_group_name
       );
-
-    if (!groupExists || groupExists.length === 0) {
-      throw new NotFoundError("Group not found");
+    } catch (error) {
+      if (!(error instanceof NotFoundError)) {
+        throw new ServerError("The server has encountered an error", error);
+      }
+      throw error;
     }
-
-    await this.sensorRepository.updateGroupName(
-      body.user_id,
-      body.sensor_groups[0]._id,
-      body.sensor_groups[0].sensor_group_name
-    );
   }
 }

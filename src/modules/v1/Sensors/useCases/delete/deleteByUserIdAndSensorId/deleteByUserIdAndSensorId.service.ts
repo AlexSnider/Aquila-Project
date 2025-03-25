@@ -1,6 +1,9 @@
 import { inject, injectable } from "tsyringe";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
-import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
+import {
+  NotFoundError,
+  ServerError,
+} from "../../../../../../helpers/errors/apiErrors";
 import { Types } from "mongoose";
 
 @injectable()
@@ -14,18 +17,25 @@ export class DeleteByUserIdAndSensorIdService {
     user_id: string,
     sensorIdObject: Types.ObjectId
   ): Promise<void> {
-    const sensor = await this.sensorRepository.findSensorByUserIdAndSensorId(
-      user_id,
-      sensorIdObject
-    );
+    try {
+      const sensor = await this.sensorRepository.findSensorByUserIdAndSensorId(
+        user_id,
+        sensorIdObject
+      );
 
-    if (!sensor || sensor.length === 0) {
-      throw new NotFoundError("Sensor not found");
+      if (!sensor || sensor.length === 0) {
+        throw new NotFoundError("Sensor not found");
+      }
+
+      await this.sensorRepository.deleteByUserIdAndSensorId(
+        user_id,
+        sensorIdObject
+      );
+    } catch (error) {
+      if (!(error instanceof NotFoundError)) {
+        throw new ServerError("The server has encountered an error", error);
+      }
+      throw error;
     }
-
-    await this.sensorRepository.deleteByUserIdAndSensorId(
-      user_id,
-      sensorIdObject
-    );
   }
 }

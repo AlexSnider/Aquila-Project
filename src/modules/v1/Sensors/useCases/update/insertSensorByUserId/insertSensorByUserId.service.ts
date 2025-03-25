@@ -1,4 +1,8 @@
-import { ConflictError, NotFoundError } from "../../../../../../helpers/errors/apiErrors";
+import {
+  ConflictError,
+  NotFoundError,
+  ServerError,
+} from "../../../../../../helpers/errors/apiErrors";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
 import { Types } from "mongoose";
@@ -20,30 +24,37 @@ export class InsertSensorByUserIdService {
   ) {}
 
   async execute(body: IAddSensorToGroupRequest): Promise<void> {
-    const groupExists =
-      await this.sensorRepository.findGroupsByUserIdAndGroupId(
+    try {
+      const groupExists =
+        await this.sensorRepository.findGroupsByUserIdAndGroupId(
+          body.user_id,
+          body.groupIdObject
+        );
+
+      if (!groupExists || groupExists.length === 0) {
+        throw new NotFoundError("Group not found");
+      }
+
+      const sensorExists = await this.sensorRepository.sensorNameExists(
         body.user_id,
-        body.groupIdObject
+        body.sensor_name
       );
 
-    if (!groupExists || groupExists.length === 0) {
-      throw new NotFoundError("Group not found");
+      if (sensorExists) {
+        throw new ConflictError("Sensor name already exists");
+      }
+
+      await this.sensorRepository.insertSensorData(
+        body.user_id,
+        body.groupIdObject,
+        body.sensor_name,
+        body.coordinates
+      );
+    } catch (error) {
+      if (!(error instanceof NotFoundError || error instanceof ConflictError)) {
+        throw new ServerError("The server has encountered an error", error);
+      }
+      throw error;
     }
-
-    const sensorExists = await this.sensorRepository.sensorNameExists(
-      body.user_id,
-      body.sensor_name
-    );
-
-    if (sensorExists) {
-      throw new ConflictError("Sensor name already exists");
-    }
-
-    await this.sensorRepository.insertSensorData(
-      body.user_id,
-      body.groupIdObject,
-      body.sensor_name,
-      body.coordinates
-    );
   }
 }

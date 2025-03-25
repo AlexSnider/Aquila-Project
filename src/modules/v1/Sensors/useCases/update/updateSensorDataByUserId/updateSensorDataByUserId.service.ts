@@ -1,4 +1,7 @@
-import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
+import {
+  NotFoundError,
+  ServerError,
+} from "../../../../../../helpers/errors/apiErrors";
 import { ISensorRepositories } from "../../../repositories/ISensorRepositories";
 import { inject, injectable } from "tsyringe";
 import { Types } from "mongoose";
@@ -24,21 +27,28 @@ export class UpdateSensorDataService {
   ) {}
 
   async execute(body: IUpdateSensorRequest): Promise<void> {
-    const sensorExists =
-      await this.sensorRepository.findSensorByUserIdAndSensorId(
+    try {
+      const sensorExists =
+        await this.sensorRepository.findSensorByUserIdAndSensorId(
+          body.user_id,
+          body.sensor_groups[0].sensors[0]._id
+        );
+
+      if (!sensorExists || sensorExists.length === 0) {
+        throw new NotFoundError("Sensor not found");
+      }
+
+      await this.sensorRepository.updateSensorData(
         body.user_id,
-        body.sensor_groups[0].sensors[0]._id
+        body.sensor_groups[0].sensors[0]._id,
+        body.sensor_groups[0].sensors[0].sensor_name,
+        body.sensor_groups[0].sensors[0].location
       );
-
-    if (!sensorExists || sensorExists.length === 0) {
-      throw new NotFoundError("Sensor not found");
+    } catch (error) {
+      if (!(error instanceof NotFoundError)) {
+        throw new ServerError("The server has encountered an error", error);
+      }
+      throw error;
     }
-
-    await this.sensorRepository.updateSensorData(
-      body.user_id,
-      body.sensor_groups[0].sensors[0]._id,
-      body.sensor_groups[0].sensors[0].sensor_name,
-      body.sensor_groups[0].sensors[0].location
-    );
   }
 }

@@ -3,7 +3,10 @@ import {
   ISensorRepositories,
   ISensorResult,
 } from "../../../repositories/ISensorRepositories";
-import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
+import {
+  NotFoundError,
+  ServerError,
+} from "../../../../../../helpers/errors/apiErrors";
 import { Types } from "mongoose";
 
 @injectable()
@@ -17,15 +20,22 @@ export class FindSensorByUserIdAndSensorIdService {
     user_id: string,
     sensorIdObject: Types.ObjectId
   ): Promise<ISensorResult[]> {
-    const sensor = await this.sensorRepository.findSensorByUserIdAndSensorId(
-      user_id,
-      sensorIdObject
-    );
+    try {
+      const sensor = await this.sensorRepository.findSensorByUserIdAndSensorId(
+        user_id,
+        sensorIdObject
+      );
 
-    if (!sensor || sensor.length === 0) {
-      throw new NotFoundError("Sensor not found");
+      if (!sensor || sensor.length === 0) {
+        throw new NotFoundError("Sensor not found");
+      }
+
+      return sensor;
+    } catch (error) {
+      if (!(error instanceof NotFoundError)) {
+        throw new ServerError("The server has encountered an error", error);
+      }
+      throw error;
     }
-
-    return sensor;
   }
 }

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateNewSensorService } from "./createNewSensor.service";
 
-class CreateNewSensorController {
+export class CreateNewSensorController {
   async handle(request: Request, response: Response): Promise<Response> {
     const body = request.body;
 
