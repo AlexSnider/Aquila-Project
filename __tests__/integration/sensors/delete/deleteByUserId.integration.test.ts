@@ -3,7 +3,7 @@ import app from "../../../../src/app";
 import {
   newCreateSensor,
   newRandomUserId,
-} from "__tests__/factories/sensor.factories";
+} from "__tests__/integration_factories/sensor.factories";
 
 const supertestServer = supertest(app);
 
