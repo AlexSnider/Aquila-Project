@@ -20,11 +20,9 @@ export async function initApp(): Promise<Express> {
 
   if (!mongoUrl) {
     await ConnectToMongoDatabase.execute();
-    console.log("Using Production Database...");
   }
 
   if (mongoUrl) {
-    console.log("Using Test Database...");
     await mongoose.connect(mongoUrl);
   }
 
