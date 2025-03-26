@@ -3,33 +3,34 @@ import "reflect-metadata";
 import "../src/helpers/container";
 import express, { json, Express } from "express";
 import router from "./routes";
+import mongoose from "mongoose";
 import ConnectToMongoDatabase from "./database/production";
-import ConnectToTestDatabase from "./database/tests";
 import errorMiddleware from "./middleware/errorMiddleware";
 import corsMiddleware from "./middleware/corsMiddleware";
 
 const app = express();
 
 app.use(json());
+app.use(errorMiddleware.execute);
 app.use(corsMiddleware.execute);
 app.use(router);
-app.use(errorMiddleware.execute);
 
 export async function initApp(): Promise<Express> {
-  if (process.env.NODE_ENV === "test") {
-    await ConnectToTestDatabase.execute();
-  } else {
+  const mongoUrl: string | undefined = process.env.DB_URL;
+
+  if (!mongoUrl) {
     await ConnectToMongoDatabase.execute();
   }
-  return Promise.resolve(app);
+
+  if (mongoUrl) {
+    await mongoose.connect(mongoUrl);
+  }
+
+  return app;
 }
 
 export async function close(): Promise<void> {
-  if (process.env.NODE_ENV === "test") {
-    await ConnectToTestDatabase.disconnect();
-  } else {
-    await ConnectToMongoDatabase.disconnect();
-  }
+  return await ConnectToMongoDatabase.disconnect();
 }
 
 export default app;
