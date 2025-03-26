@@ -103,11 +103,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: List files in the coverage folder
-        run: |
-          ls -l coverage-integration/lcov.info
-          ls -l coverage-unitary/lcov.info
-
       - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -119,6 +114,6 @@ jobs:
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.sources=src \
             -Dsonar.tests=__tests__ \
-            -Dsonar.javascript.lcov.reportPaths=coverage-integration/lcov.info,coverage-unitary/lcov.info \
+            -Dsonar.javascript.lcov.reportPaths=./coverage-integration/lcov.info,./coverage-unitary/lcov.info \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
