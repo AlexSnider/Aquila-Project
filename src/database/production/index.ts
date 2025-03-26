@@ -8,7 +8,7 @@ class ConnectToDatabase {
     try {
       await mongoose.connect(mongoUrl);
       console.log("MongoDB connected!");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(error);
     }
   }

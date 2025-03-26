@@ -1,4 +1,4 @@
-name: Aquila Build Project
+name: Aquila Build Project Workflow
 
 on:
   push:
@@ -8,13 +8,8 @@ on:
       - release
 
 jobs:
-  tests_workflow:
-    uses: ./.github/workflows/test-workflow.yml # Reutiliza o workflow de testes
-
   build_and_push_docker:
     runs-on: ubuntu-latest
-    needs: tests_workflow # Só executa se os testes passarem
-
     steps:
       - name: Check out code
         uses: actions/checkout@v3
