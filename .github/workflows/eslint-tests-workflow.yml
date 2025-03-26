@@ -103,6 +103,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: List files in the coverage folder
+        run: |
+          ls -l coverage-integration/lcov.info
+          ls -l coverage-unitary/lcov.info
+
       - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
