@@ -128,9 +128,6 @@ jobs:
           name: coverage-integration
           path: ./coverage-integration
 
-      - name: Verificar arquivos de cobertura
-        run: ls -lah coverage-unitary coverage-integration
-
       - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
