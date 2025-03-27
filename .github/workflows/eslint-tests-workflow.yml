@@ -57,7 +57,7 @@ jobs:
         run: npm run test:unit
 
       - name: Upload unit test coverage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: coverage-unitary
           path: ./coverage-unitary/lcov.info
@@ -93,7 +93,7 @@ jobs:
         run: npm run test:integration
 
       - name: Upload integration test coverage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: coverage-integration
           path: ./coverage-integration/lcov.info
