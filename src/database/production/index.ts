@@ -9,7 +9,7 @@ class ConnectToDatabase {
       await mongoose.connect(mongoUrl);
       console.log("MongoDB connected!");
     } catch (error: unknown) {
-      console.log(error);
+      throw new Error(`Error connecting to MongoDB: ${error}`);
     }
   }
 
