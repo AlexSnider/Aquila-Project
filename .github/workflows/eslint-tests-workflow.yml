@@ -1,4 +1,4 @@
-name: Aquila EsLint, Tests and SonarQube Analysis Workflow
+name: Aquila Code Quality & Test Coverage Analysis
 
 on:
   push:
@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "22.11.0"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
@@ -47,12 +48,19 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "22.11.0"
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run Unit Tests
         run: npm run test:unit
+
+      - name: Upload unit test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-unitary
+          path: coverage-unitary
 
   integration_tests:
     runs-on: ubuntu-latest
@@ -76,15 +84,19 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "22.11.0"
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
-
-      - name: Set up Docker
-        run: docker info
+        run: npm ci
 
       - name: Run Integration Tests
         run: npm run test:integration
+
+      - name: Upload integration test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-integration
+          path: coverage-integration
 
   sonar:
     runs-on: ubuntu-latest
@@ -99,9 +111,22 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "22.11.0"
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Download unit test coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-unitary
+          path: ./coverage-unitary
+
+      - name: Download integration test coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-integration
+          path: ./coverage-integration
 
       - name: Run SonarQube analysis
         env:
@@ -114,6 +139,6 @@ jobs:
             -Dsonar.organization=${{ secrets.SONAR_ORG }} \
             -Dsonar.sources=src \
             -Dsonar.tests=__tests__ \
-            -Dsonar.javascript.lcov.reportPaths=./coverage-integration/lcov.info,./coverage-unitary/lcov.info \
+            -Dsonar.javascript.lcov.reportPaths=coverage-integration/lcov.info,coverage-unitary/lcov.info \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
