@@ -5,12 +5,10 @@ on:
     branches:
       - develop
       - main
-      - release
   pull_request:
     branches:
       - develop
       - main
-      - release
     types:
       - ready_for_review
 
