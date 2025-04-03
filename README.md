@@ -100,7 +100,11 @@ Clone o repositório para rodar localmente:
 ```
 git clone https://github.com/AlexSnider/Aquila-Project
 ```
-Execute, primeiramente:
+Faça download do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/main/.env.example) e edite as configurações. Deixe o arquivo na pasta raiz do projeto. <br/>
+
+>**Nota 4:** O Docker Compose também faz o BUILD da aplicação. Comente o service APP com ## se está rodando localmente através do clone do projeto. <br/>
+
+Após, execute, primeiramente:
 ```
 docker-compose up
 ```
@@ -113,18 +117,18 @@ npm start
 
 **OU**
 
-Faça Docker Pull da última imagem do [repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) e depois o download do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example). Edite as configurações. Lembre-se de adicionar o serviço MongoDB ao docker compose, caso queira usar localmente. Você precisará do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) para isso.
+Faça download do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) e do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example).
 
-Adicione o path:
-```
-env_file: - ./path/to/your/.env
-```
-para o .env ao docker compose.
+Na linha IMAGE, adicione a última tag da imagem do meu [repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) no arquivo docker-compose.
+
+Edite o .env e o mantenha na mesma pasta do docker compose.
 
 Execute usando:
 ```
 docker-compose up
 ```
+
+Verifique os logs do container para ter acesso a documentação e a interface do Jaeger.
 
 ## Licença
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project)<br/>
