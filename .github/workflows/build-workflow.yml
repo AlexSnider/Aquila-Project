@@ -3,9 +3,7 @@ name: Aquila Build Project Workflow
 on:
   push:
     branches:
-      - develop
       - main
-      - release
 
 jobs:
   build_and_push_docker:
