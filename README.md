@@ -119,9 +119,13 @@ npm start
 
 Faça download do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) e do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example).
 
-Na linha IMAGE, adicione a última tag da imagem do meu [repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) no arquivo docker-compose.
+Na linha IMAGE, adicione a última tag da imagem do meu [Repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) no arquivo docker-compose. Clique na tag e copie o seu endereço. 
+
+Exemplo: alexvoliveira/aquila...
 
 Edite o .env e o mantenha na mesma pasta do docker compose.
+
+Abra um terminal e navegue até a pasta do docker-compose e .env.
 
 Execute usando:
 ```
