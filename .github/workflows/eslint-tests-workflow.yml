@@ -126,6 +126,22 @@ jobs:
           name: coverage-integration
           path: ./coverage-integration
 
+      - name: Check minimum coverage
+        run: |
+          cat coverage-unitary/lcov.info coverage-integration/lcov.info > merged.lcov
+
+          covered=$(grep -c ",1" merged.lcov)
+          total=$(grep -c "^DA:" merged.lcov)
+          coverage=$(awk "BEGIN { print ($covered/$total)*100 }")
+
+          echo "📊 Coverage: $coverage%"
+
+          (( $(echo "$coverage < 80" | bc -l) )) && {
+            echo "❌ Coverage below 80%"; exit 1;
+          }
+
+          echo "✅ Coverage OK"
+
       - name: Run SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
