@@ -12,25 +12,33 @@
 
 <div align="center">
   
-[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=AlexSnider_Aquila-Project)](https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project) <br/>
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AlexSnider_Aquila-Project&metric=coverage)](https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project)
+  <a href="https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project">
+    <img src="https://sonarcloud.io/api/project_badges/quality_gate?project=AlexSnider_Aquila-Project" alt="Quality gate" width="180">
+  </a>
+  <br/>
+  <a href="https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project">
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=AlexSnider_Aquila-Project&metric=coverage" alt="Coverage" width="180">
+  </a>
 
 </div>
+
 
 <p align="center">Credits to <a href="https://sonarcloud.io">SonarQube</a></p>
 
 
 
 ## 👋 Introdução
-O [Projeto](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolvido como parte de uma nova empreitada do [Mentor](https://github.com/vittooh) que lançou o desafio para seus mentorados (*EU*), para que pudesse por em prática as habilidades adiquiridas.
+O [**PROJETO**](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolvido como parte de uma nova empreitada do [**MENTOR**](https://github.com/vittooh) que lançou o desafio para seus mentorados (sendo eu um deles), para que pudesse por em prática as habilidades adiquiridas.
 
->**Nota 1:** Atualmente o projeto encontra-se em desenvolvimento constante.
+⚠️ **Esse projeto é uma Evolução do Aquila Original**.
 
-## 📝 Wiki do Projeto
-Você pode entender melhor as decisões tomadas no desenvolvimento do projeto através da [Wiki](https://github.com/AlexSnider/Aquila-Project/wiki) do Aquila.
+>**Nota 1:** Atualmente o projeto encontra-se em fase final desenvolvimento.
+
+## 📝 Wiki do Projeto - ADR
+Você pode entender melhor as decisões tomadas no desenvolvimento do projeto através da [**WIKI**](https://github.com/AlexSnider/Aquila-Project/wiki) do Aquila (em progresso).
 
 ## 💻 Tecnologias
-Para essa versão do projeto, utilizei (implementarei):
+Para essa versão do projeto, utilizei:
 ### Back-End
 - Node.js (22.11.0 LTS);
 - TypeScript;
@@ -42,38 +50,43 @@ Para essa versão do projeto, utilizei (implementarei):
 - GitHub Actions;
 - Docker;
 - Jest Tests;
+- SonarQube;
 - [Test Containers](https://testcontainers.com); <br/>
-- Algumas bases de CleanArch
+- Algumas bases de Clean Achitecture; 👉 **BASEADO NO CURSO E NÃO ENDOSSADO PELO MENTOR**
 - Swagger Annotations;
-- OpenTelemtry e Jaeger Tracer (apenas localmente);
+- OpenTelemetry e Jaeger Tracer (apenas localmente);
+- [Dependências](https://github.com/AlexSnider/Aquila-Project/blob/main/package.json) utilizadas.
 
 ## ⚙️ Desenvolvimento
 
 As implementações sempre passam pela avaliação do mentor antes de serem aprovadas (via PR).
 
-A base do back-end vem do [Curso](https://loja.italents.com.br/products/formacao-back-end-com-node-js) da iTalents que ganhei por ter conseguido ser destaque no bootcamp com eles. <br/><br/>
-Acesse aqui: [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
+A base do Back-End vem do 👉 [Curso](https://loja.italents.com.br/products/formacao-back-end-com-node-js) da iTalents que ganhei por ter conseguido ser destaque no bootcamp com eles. <br/><br/>
+Acesse aqui: 👉 [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATVD4).
 
 ### Conceito REST
  - A API conta com padrões REST, seguido a lógica dos verbos HTTP para sua elaboração;
  - As respostas da API seguem o padrão JSON, garantindo compatibilidade e simplicidade;
- - Stataless: Cada requisição contém todas as informações necessárias, sem depender do estado de requisições anteriores
+ - Stateless: Cada requisição contém todas as informações necessárias, sem depender do estado de requisições anteriores.
 
 ## 🚀 Partes já concluídas
-### Back-End (em reestruturação para a versão 2.0)
+### Back-End
 - Containers necessários para a aplicação;
-- [Conexão](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database) com banco de dados separados (produção e testes);
-- [Casos de uso](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/modules/v1/Sensors/useCases) pertinentes;
+- [Conexão](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database) com banco de dados produção;
+- [Conexão](https://github.com/AlexSnider/Aquila-Project/blob/main/__tests__/config/integration.tests.config.ts) com banco de dados de teste;
+- [Casos de uso](https://github.com/AlexSnider/Aquila-Project/tree/main/src/modules/v1/Sensors/useCases) pertinentes;
 - [Rotas](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/routes/v1/Sensors/sensorRoute.ts);
-- CI no [Repositório](https://github.com/AlexSnider/Aquila-Project/tree/develop);
+- [Middlewares](https://github.com/AlexSnider/Aquila-Project/tree/main/src/middleware);
+- CI no [Repositório](https://github.com/AlexSnider/Aquila-Project/tree/main);
 - CD no [DockerHub](https://hub.docker.com/r/alexvoliveira/aquila/tags);
 - [Workflows](https://github.com/AlexSnider/Aquila-Project/tree/develop/.github/workflows);
-- Documentação com [Swagger Annotations](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/docs/swaggerConfig.ts);
-- Testes de [Integração](https://github.com/AlexSnider/Aquila-Project/tree/develop/__tests__/integration/sensors);
+- Testes de [Integração](https://github.com/AlexSnider/Aquila-Project/tree/main/__tests__/integration/sensors);
+- Testes [Unitários](https://github.com/AlexSnider/Aquila-Project/tree/main/__tests__/unitary/sensors);
+- Documentação com [Swagger Annotations](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/docs/swaggerConfig.ts).
 
-#### Dados na coleção do MongoDB - Estrutura (2.0)
+#### Dados de exemplo na coleção do MongoDB:
 ![image](https://github.com/user-attachments/assets/3a6ea3e4-41e1-4868-8c76-293668755b32)
->**Nota 2:** user_id representa o id de um usuário.
+>**Nota 2:** user_id representa o id de um usuário. Ver Wiki para mais informações.
 
 ## 💡 A fazer
 Aqui você encontra as [Novidades](https://github.com/users/AlexSnider/projects/3) a serem implementadas.
@@ -87,20 +100,40 @@ Clone o repositório para rodar localmente:
 ```
 git clone https://github.com/AlexSnider/Aquila-Project
 ```
-OU
+Faça download do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/main/.env.example) e edite as configurações. Deixe o arquivo na pasta raiz do projeto. <br/>
 
-Faça Docker Pull da última imagem do [repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) e depois o download do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example). Edite as configurações. Lembre-se de adicionar o serviço MongoDB ao docker compose, caso queira usar localmente. Você precisará do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) para isso.
+>**Nota 4:** O Docker Compose também faz o BUILD da aplicação. Comente o service APP com ## se está rodando localmente através do clone do projeto. <br/>
 
-Adicione o path:
+Após, execute, primeiramente:
 ```
-env_file: - ./path/to/your/.env
+docker-compose up
 ```
-para o .env ao docker compose.
+Para levantar um container com o Jaeger Collector e após isso:
+```
+npm install
+npm start
+```
+👉 Não se esqueça de editar e renomear o .env.example com as suas configurações.<br/>
+
+**OU**
+
+Faça download do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) e do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example).
+
+Na linha IMAGE, adicione a última tag da imagem do meu [Repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) no arquivo docker-compose. Clique na tag e copie o seu endereço. 
+
+Exemplo: alexvoliveira/aquila...
+
+Edite o .env e o mantenha na mesma pasta do docker compose.
+
+Abra um terminal e navegue até a pasta do docker-compose e .env.
 
 Execute usando:
 ```
 docker-compose up
 ```
 
+Verifique os logs do container para ter acesso a documentação e a interface do Jaeger.
+
 ## Licença
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=AlexSnider_Aquila-Project)<br/>
 Free [MIT](https://github.com/AlexSnider/Aquila-Project/blob/main/LICENSE) Licence.
