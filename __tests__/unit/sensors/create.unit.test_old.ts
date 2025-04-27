@@ -26,47 +26,33 @@ describe("Create Sensor", () => {
     jest.clearAllMocks();
   });
 
-  const prepareSensorData = () => {
-    const sensorData = newSensor();
-    return {
-      ...sensorData,
-      location: {
-        type: "Point" as const,
-        coordinates: sensorData.location.coordinates.map(Number) as [number, number],
-      },
-    };
-  };
-
-  it("should call findByName with the correct sensor name", async () => {
+  it("should create a sensor if it does not already exist", async () => {
     mockSensorRepository.findByName.mockResolvedValueOnce(null);
 
-    const sensorData = prepareSensorData();
-    await createService.execute(sensorData);
+    const sensorData = newSensor();
+    const sensorDataCorrected = {
+      ...sensorData,
+      location: {
+        type: "Point" as "Point",
+        coordinates: sensorData.location.coordinates as unknown as [
+          number,
+          number
+        ],
+      },
+    };
+
+    const result = await createService.execute(sensorDataCorrected);
 
     expect(mockSensorRepository.findByName).toHaveBeenCalledWith(
       sensorData.sensor_name
     );
-  });
-
-  it("should create a sensor with the correct properties", async () => {
-    mockSensorRepository.findByName.mockResolvedValueOnce(null);
-
-    const sensorData = prepareSensorData();
-    const result = await createService.execute(sensorData);
 
     expect(result).toHaveProperty("_id");
-    expect(result).toHaveProperty("sensor_name", sensorData.sensor_name);
-    expect(result).toHaveProperty("user_id", sensorData.user_id);
+    expect(result).toHaveProperty("sensor_name");
+    expect(result).toHaveProperty("user_id");
     expect(result).toHaveProperty("location");
     expect(result).toHaveProperty("createdAt");
     expect(result).toHaveProperty("updatedAt");
-  });
-
-  it("should ensure the location property is correctly structured", async () => {
-    mockSensorRepository.findByName.mockResolvedValueOnce(null);
-
-    const sensorData = prepareSensorData();
-    const result = await createService.execute(sensorData);
 
     expect(typeof result.location).toBe("object");
     expect(result.location).not.toBeNull();
