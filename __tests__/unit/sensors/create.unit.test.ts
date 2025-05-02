@@ -1,76 +1,58 @@
-import {
-  newSensor,
-} from "__tests__/factories/sensor.factories";
 import "reflect-metadata";
-import { ISensorRepositories } from "src/modules/v1/Sensors/repositories/ISensorRepositories";
 import { CreateService } from "src/modules/v1/Sensors/useCases/create/create.service";
+import { mockSensorRepository } from "__tests__/shared/mocks/mockSensorRepository";
+import { mockSensorData } from "__tests__/shared/data/sensorData";
+import { validateSensorStructure } from "__tests__/shared/helpers/validationHelpers";
 
-const mockSensorRepository: jest.Mocked<ISensorRepositories> = {
-  create: jest.fn(),
-  update: jest.fn(),
-  delete: jest.fn(),
-  findAll: jest.fn(),
-  findById: jest.fn(),
-  findByName: jest.fn(),
-  findByUserId: jest.fn(),
-};
 
 describe("Create Sensor", () => {
   let createService: CreateService;
 
   beforeEach(() => {
     createService = new CreateService(mockSensorRepository);
-  });
-
-  afterEach(() => {
     jest.clearAllMocks();
   });
 
-  const prepareSensorData = () => {
-    const sensorData = newSensor();
-    return {
-      ...sensorData,
-      location: {
-        type: "Point" as const,
-        coordinates: sensorData.location.coordinates.map(Number) as [number, number],
-      },
-    };
-  };
+  describe("Validation", () => {
+    it("should call findByName with the correct sensor name", async () => {
+      // Arrange: Mock the behavior of findByName to return null (not found)
+      mockSensorRepository.findByName.mockResolvedValueOnce(null);
 
-  it("should call findByName with the correct sensor name", async () => {
-    mockSensorRepository.findByName.mockResolvedValueOnce(null);
+      // Act: Call the createService with the mock sensor data
+      await createService.execute(mockSensorData);
 
-    const sensorData = prepareSensorData();
-    await createService.execute(sensorData);
+      // Assert: Ensure findByName was called with the correct sensor name
+      expect(mockSensorRepository.findByName).toHaveBeenCalledWith(
+        mockSensorData.sensor_name
+      );
+    });
+    it("should ensure the location property is correctly structured", async () => {
+      // Arrange: Mock the behavior of findByName to return null (not found)
+      mockSensorRepository.findByName.mockResolvedValueOnce(null);
 
-    expect(mockSensorRepository.findByName).toHaveBeenCalledWith(
-      sensorData.sensor_name
-    );
+      // Act: Call the createService with the mock sensor data
+      const result = await createService.execute(mockSensorData);
+
+      // Assert: Validate the structure of the location property
+      validateSensorStructure(result);
+    });
   });
 
-  it("should create a sensor with the correct properties", async () => {
-    mockSensorRepository.findByName.mockResolvedValueOnce(null);
+  describe("Creation", () => {
+    it("should create a sensor with the correct properties", async () => {
+      // Arrange: Mock the behavior of findByName to return null (not found)
+      mockSensorRepository.findByName.mockResolvedValueOnce(null);
 
-    const sensorData = prepareSensorData();
-    const result = await createService.execute(sensorData);
+      // Act: Call the createService with the mock sensor data
+      const result = await createService.execute(mockSensorData);
 
-    expect(result).toHaveProperty("_id");
-    expect(result).toHaveProperty("sensor_name", sensorData.sensor_name);
-    expect(result).toHaveProperty("user_id", sensorData.user_id);
-    expect(result).toHaveProperty("location");
-    expect(result).toHaveProperty("createdAt");
-    expect(result).toHaveProperty("updatedAt");
-  });
-
-  it("should ensure the location property is correctly structured", async () => {
-    mockSensorRepository.findByName.mockResolvedValueOnce(null);
-
-    const sensorData = prepareSensorData();
-    const result = await createService.execute(sensorData);
-
-    expect(typeof result.location).toBe("object");
-    expect(result.location).not.toBeNull();
-    expect(result.location).toHaveProperty("coordinates");
-    expect(Array.isArray(result.location.coordinates)).toBe(true);
+      // Assert: Validate the properties of the created sensor
+      expect(result).toHaveProperty("_id");
+      expect(result).toHaveProperty("sensor_name", mockSensorData.sensor_name);
+      expect(result).toHaveProperty("user_id", mockSensorData.user_id);
+      expect(result).toHaveProperty("location");
+      expect(result).toHaveProperty("createdAt");
+      expect(result).toHaveProperty("updatedAt");
+    });
   });
 });

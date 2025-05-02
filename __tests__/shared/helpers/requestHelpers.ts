@@ -11,6 +11,10 @@ export async function getSensorById(sensorId: string) {
     return await supertestServer.get(`/sensors/${sensorId}`);
 }
 
+export async function getAllSensors() {
+    return await supertestServer.get("/sensors");
+}
+
 export async function updateSensor(sensorId: string, data: any) {
     return await supertestServer.patch(`/sensors/update/${sensorId}`).send(data);
 }
