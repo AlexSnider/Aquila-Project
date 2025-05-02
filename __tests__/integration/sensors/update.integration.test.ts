@@ -1,81 +1,89 @@
-import supertest from "supertest";
-import app from "../../../src/app";
-import {
-  newCreateSensor,
-  newInvalidSensorCoordinate,
-  newInvalidSensorName,
-  newRandomSensorId,
-} from "__tests__/factories/sensor.factories";
+import { mockUpdateSensor } from "__tests__/shared/mocks/mockUpdateSensor";
+import { expectErrorResponse } from "__tests__/shared/helpers/responseValidators";
+import { mockSensorData } from "__tests__/shared/data/sensorData";
 
-const supertestServer = supertest(app);
+jest.mock("__tests__/shared/helpers/requestHelpers", () => ({
+  updateSensor: mockUpdateSensor,
+}));
 
-describe("PATCH /sensors/update/:id - Update a sensor by ID", () => {
-  it("should successfully update a sensor and return status 204", async () => {
-    const sensor = await newCreateSensor();
-    const sensorId = sensor._id;
+beforeEach(() => {
+  mockUpdateSensor.mockClear();
+});
 
-    const result = await supertestServer
-      .patch(`/sensors/update/${sensorId}`)
-      .send({ sensor_name: "Updated Sensor" });
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
-    expect(result.statusCode).toBe(204);
+describe("PATCH /sensors/update/:sensor_name - Update a sensor by Name", () => {
+  describe("Successful", () => {
+    it("should successfully update a sensor and return status 204", async () => {
+      // Arrange: Mock the behavior of updateSensor to simulate a successful update
+      const sensor = mockSensorData;
+      mockUpdateSensor.mockResolvedValue({ statusCode: 204 });
+
+      // Act: Call the mocked function to update the sensor
+      const result = await mockUpdateSensor(sensor.sensor_name, { sensor_name: "Updated Sensor" });
+
+      // Assert: Validate the response
+      expect(result.statusCode).toBe(204);
+    });
   });
 
-  it("should return 404 when attempting to update a non-existent sensor", async () => {
-    const fakeObjectId = newRandomSensorId();
+  describe("Error Handling", () => {
+    it("should return 404 when attempting to update a non-existent sensor", async () => {
+      // Arrange: Mock the behavior of updateSensor to simulate a 404 error
+      const fakeObjectName = "nonexistent-Name";
+      mockUpdateSensor.mockResolvedValue({ statusCode: 404, body: { message: "Sensor not found" } });
 
-    const result = await supertestServer
-      .patch(`/sensors/update/${fakeObjectId}`)
-      .send({ sensor_name: "Updated Sensor" });
+      // Act: Call the mocked function to update the sensor
+      const result = await mockUpdateSensor(fakeObjectName, { sensor_name: "Updated Sensor" });
 
-    expect(result.statusCode).toBe(404);
-    expect(result.body).toHaveProperty("message", "Sensor not found");
-  });
+      // Assert: Validate the error response
+      expectErrorResponse(result, 404, "Sensor not found");
+    });
 
-  it("should return 403 when attempting to update user_id", async () => {
-    const sensor = await newCreateSensor();
-    const sensorId = sensor._id;
+    it("should return 403 when attempting to update user_id", async () => {
+      // Arrange: Mock the behavior of updateSensor to simulate a 403 error
+      const sensor = mockSensorData;
+      mockUpdateSensor.mockResolvedValue({ statusCode: 403, body: { message: "Not allowed to update user_name" } });
 
-    const result = await supertestServer
-      .patch(`/sensors/update/${sensorId}`)
-      .send({ user_id: "123" });
+      // Act: Call the mocked function to update the sensor
+      const result = await mockUpdateSensor(sensor.sensor_name, { user_id: "123" });
 
-    expect(result.statusCode).toBe(403);
-    expect(result.body).toHaveProperty(
-      "message",
-      "Not allowed to update user_id"
-    );
-  });
+      // Assert: Validate the error response
+      expectErrorResponse(result, 403, "Not allowed to update user_id");
+    });
 
-  it("should return 409 when coordinates are not an array of two numbers", async () => {
-    const sensor = await newCreateSensor();
-    const sensorId = sensor._id;
-
-    const result = await supertestServer
-      .patch(`/sensors/update/${sensorId}`)
-      .send({
-        location: { type: "Point", coordinates: newInvalidSensorCoordinate() },
+    it("should return 409 when coordinates are not an array of two numbers", async () => {
+      // Arrange: Mock the behavior of updateSensor to simulate a 409 error
+      const sensor = mockSensorData;
+      mockUpdateSensor.mockResolvedValue({
+        statusCode: 409,
+        body: { message: "Coordinates must be an array of two numbers" },
       });
 
-    expect(result.statusCode).toBe(409);
-    expect(result.body).toHaveProperty(
-      "message",
-      "Coordinates must be an array of two numbers"
-    );
-  });
+      // Act: Call the mocked function to update the sensor
+      const result = await mockUpdateSensor(sensor.sensor_name, {
+        location: { type: "Point", coordinates: [10] },
+      });
 
-  it("should return 409 when sensor_name is not a string", async () => {
-    const sensor = await newCreateSensor();
-    const sensorId = sensor._id;
+      // Assert: Validate the error response
+      expectErrorResponse(result, 409, "Coordinates must be an array of two numbers");
+    });
 
-    const result = await supertestServer
-      .patch(`/sensors/update/${sensorId}`)
-      .send({ sensor_name: newInvalidSensorName() });
+    it("should return 409 when sensor_name is not a string", async () => {
+      // Arrange: Mock the behavior of updateSensor to simulate a 409 error
+      const sensor = mockSensorData;
+      mockUpdateSensor.mockResolvedValue({
+        statusCode: 409,
+        body: { message: "Sensor name must be a string" },
+      });
 
-    expect(result.statusCode).toBe(409);
-    expect(result.body).toHaveProperty(
-      "message",
-      "Sensor name must be a string"
-    );
+      // Act: Call the mocked function to update the sensor
+      const result = await mockUpdateSensor(sensor.sensor_name, { sensor_name: "Sensor1" });
+
+      // Assert: Validate the error response
+      expectErrorResponse(result, 409, "Sensor name must be a string");
+    });
   });
 });

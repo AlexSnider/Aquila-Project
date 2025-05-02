@@ -1,0 +1,1 @@
+export const mockUpdateSensor = jest.fn();

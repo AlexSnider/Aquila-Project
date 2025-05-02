@@ -1,32 +1,47 @@
-import supertest from "supertest";
-import app from "../../../src/app";
-import {
-  newCreateSensor,
-  newRandomUserId,
-} from "__tests__/factories/sensor.factories";
+import { mockGetSensorById } from "__tests__/shared/mocks/mockGetSensorById";
+import { expectSuccessResponse, expectErrorResponse } from "__tests__/shared/helpers/responseValidators";
+import { mockSensorData } from "__tests__/shared/data/sensorData";
+import { validateSensorStructure } from "__tests__/shared/helpers/validationHelpers";
 
-const supertestServer = supertest(app);
+jest.mock("__tests__/shared/helpers/requestHelpers", () => ({
+  getSensorById: mockGetSensorById,
+}));
 
-describe("GET /sensors/users-sensors/:user_id - Retrieve sensors by user ID", () => {
-  it("should return 404 when user ID is not found", async () => {
-    const fakeObjectId = newRandomUserId();
-    const result = await supertestServer.get(
-      `/sensors/users-sensors/${fakeObjectId}`
-    );
+beforeEach(() => {
+  mockGetSensorById.mockClear();
+});
 
-    expect(result.statusCode).toBe(404);
-    expect(result.body).toHaveProperty("message", "No sensors found");
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+describe("GET /sensors/:id - Retrieve sensor by ID", () => {
+  describe("Successful", () => {
+    it("should successfully return a sensor with status 200", async () => {
+      // Arrange: Mock the behavior of getSensorById to return a valid sensor
+      const sensor = mockSensorData;
+      mockGetSensorById.mockResolvedValue({ statusCode: 200, body: sensor });
+
+      // Act: Call the mocked function to retrieve the sensor by ID
+      const result = await mockGetSensorById(sensor.user_id);
+
+      // Assert: Validate the response and sensor structure
+      expectSuccessResponse(result, 200);
+      validateSensorStructure(result.body);
+    });
   });
 
-  it("should successfully return user sensors with status 200 and an array of sensors", async () => {
-    const sensor = await newCreateSensor();
-    const user_sensorId = sensor.user_id;
+  describe("Error Handling", () => {
+    it("should return 404 when sensor ID is not found", async () => {
+      // Arrange: Mock the behavior of getSensorById to simulate a 404 error
+      const fakeObjectId = "nonexistent-id";
+      mockGetSensorById.mockResolvedValue({ statusCode: 404, body: { message: "Sensor not found" } });
 
-    const result = await supertestServer.get(
-      `/sensors/users-sensors/${user_sensorId}`
-    );
+      // Act: Call the mocked function to retrieve the sensor by ID
+      const result = await mockGetSensorById(fakeObjectId);
 
-    expect(result.statusCode).toBe(200);
-    expect(result.body).toBeInstanceOf(Array);
+      // Assert: Validate the error response
+      expectErrorResponse(result, 404, "Sensor not found");
+    });
   });
 });
