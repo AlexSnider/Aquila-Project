@@ -3,6 +3,6 @@ import sensorsRelatoriesController from "../../modules/v1/Sensors/useCases/find/
 
 const sensorsRelatoriesRoute = Router();
 
-sensorsRelatoriesRoute.get("/sensors-reports/user-id/:user_id", sensorsRelatoriesController.handle);
+sensorsRelatoriesRoute.get("/user-id/:user_id", sensorsRelatoriesController.handle);
 
 export default sensorsRelatoriesRoute;
