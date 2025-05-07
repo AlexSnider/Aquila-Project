@@ -7,9 +7,6 @@ import {
 } from "__tests__/unitary/sensorMocks/services.mock";
 
 describe("Create Sensor Service - Unit Tests", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
   it("should throw an error if the sensor already exists", async () => {
     const userDb = mockSensor();
 
