@@ -22,6 +22,7 @@ module.exports = {
     "!src/monitoring/metrics/**",
     "!src/monitoring/health-check/health-check-controller/**",
     "!src/database/production/**",
+    "!src/utils/**",
   ],
   maxWorkers: 2,
 };
