@@ -7,12 +7,14 @@ import mongoose from "mongoose";
 import ConnectToMongoDatabase from "./database/production";
 import errorMiddleware from "./middleware/errorMiddleware";
 import corsMiddleware from "./middleware/corsMiddleware";
+import rateLimitMiddleware from "./middleware/rateLimitMiddleware";
 
 const app = express();
 
 app.use(json());
 app.use(errorMiddleware.execute);
 app.use(corsMiddleware.execute);
+app.use(rateLimitMiddleware.execute);
 app.use(router);
 
 export async function initApp(): Promise<Express> {
