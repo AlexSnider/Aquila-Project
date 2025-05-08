@@ -55,7 +55,7 @@
     "lcov-result-merger": "5.0.1",
     "lodash.memoize": "4.1.2",
     "supertest": "7.0.0",
-    "testcontainers": "10.13.1",
+    "testcontainers": "10.25.0",
     "ts-jest": "29.2.6",
     "ts-node": "10.9.2",
     "tsx": "4.19.3",
