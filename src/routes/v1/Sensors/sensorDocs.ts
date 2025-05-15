@@ -825,3 +825,50 @@
  *                   type: string
  *                   example: The server has encountered an error
  */
+
+// GET /api/v1/sensors/reports/user-id/{user_id}
+/**
+ * @swagger
+ * /api/v1/sensors/reports/user-id/{user_id}:
+ *   get:
+ *     tags:
+ *       - Sensors Reports
+ *     summary: Get By User ID and Generate Reports in PDF Route
+ *     description: Retrieves sensor reports by user ID. **THIS ROUTE SHOULD BE USED OUTSIDE SWAGGER UI TO GENERATE REPORTS IN PDF.**
+ *     parameters:
+ *       - in: path
+ *         name: user_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: 123e4567-e89b-12d3-a456-426655440000
+ *         description: User ID
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/pdf:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: User not found
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unexcepted error
+ */

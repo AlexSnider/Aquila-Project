@@ -19,6 +19,7 @@
     "glob": "11.0.1",
     "joi": "17.13.3",
     "mongoose": "8.12.1",
+    "puppeteer": "24.8.0",
     "reflect-metadata": "0.2.2",
     "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "5.0.1",
