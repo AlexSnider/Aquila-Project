@@ -1,8 +1,8 @@
 import { container } from "tsyringe";
 import { Request, Response } from "express";
 import { FindCollectionByUserIdService } from "../findCollectionByUserId/findCollectionByUserId.service";
-import { generateSensorsReport } from "src/utils/generateSensorsReport";
-import { NotFoundError } from "src/helpers/errors/apiErrors";
+import { generateSensorsReport } from "../../../../../../../src/utils/generateSensorsReport";
+import { NotFoundError } from "../../../../../../helpers/errors/apiErrors";
 
 class FindSensorsByUserIdAndGenerateReportsController {
   async handle(request: Request, response: Response): Promise<Response> {
