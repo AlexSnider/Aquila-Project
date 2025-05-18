@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "cross-env NODE_ENV=production ts-node --require ./src/monitoring/metrics/instrumentation.ts src/server.ts",
+    "build": "tsc",
+    "start": "node dist/src/server.js",
     "dev": "cross-env NODE_ENV=development tsx watch src/server.ts",
     "test:integration": "jest --config=jest.integration.config.js",
     "test:unit": "jest --config=jest.unit.config.js",
