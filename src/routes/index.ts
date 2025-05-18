@@ -8,7 +8,7 @@ import DocsRoute from "./api-docs/docsRoute";
 
 const router = Router();
 
-router.use("/docs", corsMiddleware.execute, DocsRoute);
+router.use("/", corsMiddleware.execute, DocsRoute);
 router.use("/health-check", corsMiddleware.execute, healthCheckRoute);
 router.use("/api/v1/sensors", corsMiddleware.execute, sensorRoutes);
 router.use("/api/v1/sensors/reports", corsMiddleware.execute, sensorsRelatoriesRoute);
