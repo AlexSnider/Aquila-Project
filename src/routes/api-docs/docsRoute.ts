@@ -4,6 +4,6 @@ import swaggerSpec from "../../docs/swaggerConfig";
 
 const DocsRoute = Router();
 
-DocsRoute.use("/", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+DocsRoute.get("/", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default DocsRoute;
