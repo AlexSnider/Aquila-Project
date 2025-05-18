@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 class CorsMiddleware {
   execute(request: Request, response: Response, next: NextFunction): void {
-    response.header("Access-Control-Allow-Origin", "http://localhost:3005");
+    response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Methods", "GET, PATCH, POST, DELETE, PUT");
     response.header(
       "Access-Control-Allow-Headers",
