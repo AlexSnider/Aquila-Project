@@ -37,7 +37,9 @@ export default function instrumentation() {
 
   try {
     sdk.start();
-    console.log("Instrumentation started at: http://localhost:16686");
+    console.log(
+      "Instrumentation started (if locally) at: http://localhost:16686"
+    );
   } catch (error) {
     console.log(error);
   }

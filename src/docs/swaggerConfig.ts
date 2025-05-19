@@ -4,10 +4,11 @@ const swaggerSpec = swaggerJSDoc({
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Áquila - Sensors API Documentation",
+      title: "Áquila Sensores Geográficos - Documentação",
       version: "2.0.0",
       description:
-        "Esta documentação descreve os endpoints da API responsável por gerenciar sensores geográficos, incluindo verificação de status e operações CRUD.",
+        "Esta documentação descreve os endpoints da API responsável por gerenciar \
+         sensores geográficos, incluindo verificação de status e operações CRUD.",
       contact: {
         name: "Equipe de Desenvolvimento",
         email: "alexsnider8@gmail.com",
@@ -20,8 +21,12 @@ const swaggerSpec = swaggerJSDoc({
     },
     servers: [
       {
-        url: "http://localhost:3005",
+        url: "http://localhost:3000",
         description: "Ambiente de desenvolvimento",
+      },
+      {
+        url: "https://aquila-project.onrender.com",
+        description: "Ambiente de produção",
       },
     ],
     tags: [
