@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
+import express from "express";
 import rateLimit from "express-rate-limit";
+
+const app = express();
+
+app.set("trust proxy", true);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
