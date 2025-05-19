@@ -32,6 +32,14 @@ Aquila é uma API REST para cadastro e organização de sensores geográficos. D
 
 O [**PROJETO**](https://github.com/vittooh/aquila/wiki/Projeto-Aquila) foi desenvolvido como parte de uma nova empreitada do [**MENTOR**](https://github.com/vittooh) que lançou o desafio para seus mentorados (sendo eu um deles), para que pudesse por em prática as habilidades adquiridas e implementar as novidades propostas durante os encontros virtuais.
 
+## 🌐 Acesse a Documentação Online
+
+A documentação completa da API do projeto **Áquila** já está disponível!
+
+📄 [Clique aqui para acessar](https://aquila-project.onrender.com/docs) <br>
+
+Pode levar em torno de 1min para a aplicação subir, pois o Render mantém em stand by após 15min online e sem uso.
+
 ## 📝 Wiki do Projeto - A.D.R
 Você pode entender melhor as decisões tomadas no desenvolvimento do projeto através da [**WIKI**](https://github.com/AlexSnider/Aquila-Project/wiki) do Aquila.
 
@@ -120,10 +128,8 @@ Acesse aqui: 👉 [Projeto Finalista](https://github.com/AlexSnider/iTalents-ATV
 | PUT    | `/insert-group/user-id/:user_id`                                     | Insere um novo grupo para um usuário                   |
 | PUT    | `/insert-sensor/user-id/:user_id/group-id/:_id`                      | Insere um novo sensor em um grupo de um usuário        |
 | GET    | `/health-check`            | Rota de verificação de saúde do sistema              |
-| GET    | `/api-docs`                | Rota para acessar a documentação da API              |
+| GET    | `/docs`                | Rota para acessar a documentação da API              |
 
-
->**Nota 2:** A aplicação já teve o seu Deploy efetuado na AWS (versão 1.0 sem grupos de sensores) usando Fargate (em off por motivos financeiros). <br/>
 
 ## 🌟 Como usar
 ### Requisitos: [Docker](https://www.docker.com/)
@@ -136,7 +142,7 @@ git clone https://github.com/AlexSnider/Aquila-Project
 ```
 Faça download do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/main/.env.example) e edite as configurações. Deixe o arquivo na pasta raiz do projeto. <br/>
 
->**Nota 3:** O Docker Compose também faz o BUILD da aplicação. Comente o service APP com ## se está rodando localmente através do clone do projeto. <br/>
+>**Nota 2:** O Docker Compose também faz o BUILD da aplicação. Comente o service APP com ## se está rodando localmente através do clone do projeto. <br/>
 
 Após, execute, primeiramente:
 ```
