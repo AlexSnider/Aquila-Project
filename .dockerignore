@@ -8,3 +8,4 @@ bin
 /coverage-integration
 /coverage-unitary
 jest.dev.config.js
+dist

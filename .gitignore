@@ -9,3 +9,4 @@ Dockerfile.act
 /coverage-integration
 /coverage-unitary
 jest.dev.config.js
+dist
