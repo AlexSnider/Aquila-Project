@@ -6,9 +6,9 @@ const swaggerSpec = swaggerJSDoc({
     info: {
       title: "Áquila Sensores Geográficos - Documentação",
       version: "2.0.0",
-      description:
-        "Esta documentação descreve os endpoints da API responsável por gerenciar \
-         sensores geográficos, incluindo verificação de status e operações CRUD.",
+      description: `Esta documentação descreve os endpoints da API responsável por gerenciar
+sensores geográficos, incluindo verificação de status e operações CRUD.
+Use a rota Find "ALL" para conseguir dados de teste para outros requisições.`,
       contact: {
         name: "Equipe de Desenvolvimento",
         email: "alexsnider8@gmail.com",
