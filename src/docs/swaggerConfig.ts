@@ -21,12 +21,12 @@ const swaggerSpec = swaggerJSDoc({
     },
     servers: [
       {
-        url: "http://localhost:3000",
-        description: "Ambiente de desenvolvimento",
+        url: "https://aquila-project.onrender.com",
+        description: "Ambiente de produção*",
       },
       {
-        url: "https://aquila-project.onrender.com",
-        description: "Ambiente de produção",
+        url: "http://localhost:3000",
+        description: "Ambiente de desenvolvimento",
       },
     ],
     tags: [
