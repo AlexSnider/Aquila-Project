@@ -117,7 +117,7 @@ Acompanhe [**novas features e entregas**](https://github.com/users/AlexSnider/pr
 ### Back-End
 
 - Containers necessários para a aplicação;
-- [Conexão com banco de dados de produção](https://github.com/AlexSnider/Aquila-Project/tree/develop/src/database);
+- [Conexão com banco de dados de produção](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/database/production/index.ts);
 - [Conexão com banco de dados de teste](https://github.com/AlexSnider/Aquila-Project/blob/main/__tests__/config/integration.tests.config.ts);
 - [Casos de uso](https://github.com/AlexSnider/Aquila-Project/tree/main/src/modules/v1/Sensors/useCases);
 - [Rotas da API](https://github.com/AlexSnider/Aquila-Project/blob/develop/src/routes/v1/Sensors/sensorRoute.ts);
@@ -190,7 +190,7 @@ npm start
 👉 Não se esqueça de editar e renomear o .env.example com as suas configurações.<br/>
 
 ### 🔁 Forma 2: Usando imagem Docker
-Faça download do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) e do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/develop/.env.example).
+Faça download do [Docker Compose](https://github.com/AlexSnider/Aquila-Project/blob/develop/docker-compose.yml) e do [.env.example](https://github.com/AlexSnider/Aquila-Project/blob/main/.env.example).
 
 Na linha **IMAGE**, adicione a última tag da imagem do meu [Repositório](https://hub.docker.com/r/alexvoliveira/aquila/tags) no arquivo docker-compose. Clique na tag e copie o seu endereço. 
 ```
