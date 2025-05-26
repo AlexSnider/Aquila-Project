@@ -1,3 +1,69 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Location:
+ *       type: object
+ *       properties:
+ *         type:
+ *           type: string
+ *           example: Point
+ *           enum: [Point]
+ *         coordinates:
+ *           type: array
+ *           minItems: 2
+ *           maxItems: 2
+ *           items:
+ *             type: number
+ *           example: [-12.3456, -49.6789]
+ *       required:
+ *         - type
+ *         - coordinates
+ *     Sensor:
+ *       type: object
+ *       properties:
+ *         sensor_name:
+ *           type: string
+ *           example: Sensor 1A
+ *         location:
+ *           $ref: '#/components/schemas/Location'
+ *       required:
+ *         - sensor_name
+ *         - location
+ *     SensorGroup:
+ *       type: object
+ *       properties:
+ *         sensor_group_name:
+ *           type: string
+ *           example: Grupo 1
+ *         sensors:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Sensor'
+ *       required:
+ *         - sensor_group_name
+ *         - sensors
+ *     SensorCollection:
+ *       type: object
+ *       properties:
+ *         user_id:
+ *           type: string
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
+ *         sensor_groups:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/SensorGroup'
+ *       required:
+ *         - user_id
+ *         - sensor_groups
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Error message
+ */
+
 // POST /api/v1/sensors/new-sensor
 /**
  * @swagger
@@ -17,7 +83,7 @@
  *               user_id:
  *                 type: string
  *                 description: ID of the user who owns the sensor.
- *                 example: 123e4567-e89b-12d3-a456-426655440000
+ *                 example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *               sensor_groups:
  *                 type: array
  *                 description: List of sensor groups.
@@ -32,74 +98,41 @@
  *                       type: array
  *                       description: List of sensors in the group.
  *                       items:
- *                         type: object
- *                         properties:
- *                           sensor_name:
- *                             type: string
- *                             description: Name of the sensor.
- *                             example: Sensor 01
- *                           location:
- *                             type: object
- *                             description: Geographical location of the sensor.
- *                             properties:
- *                               type:
- *                                 type: string
- *                                 example: Point
- *                               coordinates:
- *                                 type: array
- *                                 items:
- *                                   type: number
- *                                 example: [-12.3456, -49.6789]
+ *                         $ref: '#/components/schemas/Sensor'
+ *             required:
+ *               - user_id
+ *               - sensor_groups
  *     responses:
  *       201:
  *         description: Created
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 user_id:
- *                   type: string
- *                   example: 123e4567-e89b-12d3-a456-426655440000
- *                 sensor_groups:
- *                   type: array
- *                   example:
- *                     - sensor_group_name: Group 01
- *                       sensors:
- *                         - sensor_name: Sensor 01
- *                           location:
- *                             type: Point
- *                             coordinates: [-12.3456, -49.6789]
+ *               $ref: '#/components/schemas/SensorCollection'
  *       400:
  *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Invalid data provided
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: Invalid data provided
  *       409:
  *         description: Conflict
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Sensor collection already exists
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: Sensor collection already exists
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Internal Server Error
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: Internal Server Error
  */
 
 // GET /api/v1/sensors/all
@@ -117,67 +150,25 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 _id:
- *                   type: string
- *                   example: "67e2ec5b298a85fb67f78f06"
- *                 user_id:
- *                   type: string
- *                   example: "f47ac10b-58cc-4372-a567-0e02b2c3d476"
- *                 sensor_groups:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       _id:
- *                         type: string
- *                         example: "67e2ec5b298a85fb67f78f07"
- *                       sensor_group_name:
- *                         type: string
- *                         example: "Grupo 1"
- *                       sensors:
- *                         type: array
- *                         items:
- *                           type: object
- *                           properties:
- *                             _id:
- *                               type: string
- *                               example: "67e2ec5b298a85fb67f78f08"
- *                             sensor_name:
- *                               type: string
- *                               example: "Sensor 1A"
- *                             location:
- *                               type: object
- *                               properties:
- *                                 type:
- *                                   type: string
- *                                   example: "Point"
- *                                 coordinates:
- *                                   type: array
- *                                   items:
- *                                     type: number
- *                                   example: [24.234, -23.5505]
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/SensorCollection'
  *       404:
  *         description: Not Found
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "No sensors collections found"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: No sensors collections found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // GET /api/v1/sensors/user-id/{id}
@@ -202,67 +193,23 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 _id:
- *                   type: string
- *                   example: "67e2ec5b298a85fb67f78f06"
- *                 user_id:
- *                   type: string
- *                   example: "f47ac10b-58cc-4372-a567-0e02b2c3d476"
- *                 sensor_groups:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       _id:
- *                         type: string
- *                         example: "67e2ec5b298a85fb67f78f07"
- *                       sensor_group_name:
- *                         type: string
- *                         example: "Grupo 1"
- *                       sensors:
- *                         type: array
- *                         items:
- *                           type: object
- *                           properties:
- *                             _id:
- *                               type: string
- *                               example: "67e2ec5b298a85fb67f78f08"
- *                             sensor_name:
- *                               type: string
- *                               example: "Sensor 1A"
- *                             location:
- *                               type: object
- *                               properties:
- *                                 type:
- *                                   type: string
- *                                   example: "Point"
- *                                 coordinates:
- *                                   type: array
- *                                   items:
- *                                     type: number
- *                                   example: [24.234, -23.5505]
+ *               $ref: '#/components/schemas/SensorCollection'
  *       404:
  *         description: Not Found
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "No sensors collections found"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: No sensors collections found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // GET /api/v1/sensors/user-id/{user_id}/group-id/{_id}
@@ -280,7 +227,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *       - in: path
  *         name: _id
@@ -295,61 +242,23 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 sensor_groups:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       _id:
- *                         type: string
- *                         example: 67ee91ba8bc970074b54cf16
- *                       sensor_group_name:
- *                         type: string
- *                         example: Grupo 1
- *                       sensors:
- *                         type: array
- *                         items:
- *                           type: object
- *                           properties:
- *                             _id:
- *                               type: string
- *                               example: 67ee91ba8bc970074b54cf17
- *                             sensor_name:
- *                               type: string
- *                               example: Sensor 1A
- *                             location:
- *                               type: object
- *                               properties:
- *                                 type:
- *                                   type: string
- *                                   example: Point
- *                                 coordinates:
- *                                   type: array
- *                                   items:
- *                                     type: number
- *                                   example: [24.234, -23.5505]
+ *               $ref: '#/components/schemas/SensorGroup'
  *       404:
  *         description: Not Found
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User or sensor group not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User or sensor group not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // GET /api/v1/sensors/user-id/{user_id}/sensor-id/{_id}
@@ -367,7 +276,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *       - in: path
  *         name: _id
@@ -382,45 +291,23 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 _id:
- *                   type: string
- *                   example: 67ee91ba8bc970074b54cf17
- *                 sensor_name:
- *                   type: string
- *                   example: Sensor 1A
- *                 location:
- *                   type: object
- *                   properties:
- *                     type:
- *                       type: string
- *                       example: Point
- *                     coordinates:
- *                       type: array
- *                       items:
- *                         type: number
- *                       example: [24.234, -23.5505]
+ *               $ref: '#/components/schemas/Sensor'
  *       404:
  *         description: Not Found
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User or sensor not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User or sensor not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // DELETE /api/v1/sensors/delete/user-id/{user_id}
@@ -438,7 +325,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *     responses:
  *       204:
@@ -448,21 +335,17 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Sensors collection not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: Sensors collection not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // DELETE /api/v1/sensors/delete/user-id/{user_id}/group-id/{_id}
@@ -480,7 +363,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *       - in: path
  *         name: _id
@@ -497,21 +380,17 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User or sensor group not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User or sensor group not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // DELETE /api/v1/sensors/delete/user-id/{user_id}/sensor-id/{_id}
@@ -529,7 +408,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *       - in: path
  *         name: _id
@@ -546,21 +425,17 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User or sensor not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User or sensor not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // PATCH /api/v1/sensors/update/user-id/{user_id}/group-id/{_id}
@@ -578,7 +453,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *       - in: path
  *         name: _id
@@ -598,6 +473,8 @@
  *                 type: string
  *                 description: Name of the sensor group.
  *                 example: Group 01
+ *             required:
+ *               - sensor_group_name
  *     responses:
  *       204:
  *         description: No Content
@@ -606,21 +483,17 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User or sensor group not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User or sensor group not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // PATCH /api/v1/sensors/update/user-id/{user_id}/sensor-id/{_id}
@@ -638,7 +511,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *       - in: path
  *         name: _id
@@ -659,20 +532,10 @@
  *                 description: Name of the sensor.
  *                 example: edited sensor name
  *               location:
- *                 type: object
- *                 description: GeoJSON location object.
- *                 properties:
- *                   type:
- *                     type: string
- *                     enum: [Point]
- *                     example: Point
- *                   coordinates:
- *                     type: array
- *                     minItems: 2
- *                     maxItems: 2
- *                     items:
- *                       type: number
- *                     example: [23, -43.55]
+ *                 $ref: '#/components/schemas/Location'
+ *             required:
+ *               - sensor_name
+ *               - location
  *     responses:
  *       204:
  *         description: No Content
@@ -681,21 +544,17 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User or sensor not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User or sensor not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: The server has encountered an error
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // PUT /api/v1/sensors/insert-group/user-id/{user_id}
@@ -713,7 +572,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *     requestBody:
  *       required: true
@@ -726,6 +585,8 @@
  *                 type: string
  *                 description: Name of the sensor group.
  *                 example: Group 01
+ *             required:
+ *               - sensor_group_name
  *     responses:
  *       204:
  *         description: No Content
@@ -734,21 +595,17 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "The server has encountered an error"
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // PUT /api/v1/sensors/insert-sensor/user-id/{user_id}/group-id/{_id}
@@ -766,7 +623,7 @@
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *       - in: path
  *         name: _id
@@ -787,20 +644,10 @@
  *                 description: Name of the sensor.
  *                 example: nov2134213
  *               coordinates:
- *                 type: object
- *                 description: GeoJSON Point object representing the sensor location.
- *                 properties:
- *                   type:
- *                     type: string
- *                     enum: [Point]
- *                     example: Point
- *                   coordinates:
- *                     type: array
- *                     minItems: 2
- *                     maxItems: 2
- *                     items:
- *                       type: number
- *                     example: [45, -43.5505]
+ *                 $ref: '#/components/schemas/Location'
+ *             required:
+ *               - sensor_name
+ *               - coordinates
  *     responses:
  *       204:
  *         description: No Content
@@ -809,21 +656,17 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User or sensor group not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User or sensor group not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: The server has encountered an error
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: The server has encountered an error
  */
 
 // GET /api/v1/sensors/reports/user-id/{user_id}
@@ -834,14 +677,14 @@
  *     tags:
  *       - Sensors Reports
  *     summary: Get By User ID and Generate Reports in PDF Route
- *     description: Retrieves sensor reports by user ID. **THIS ROUTE SHOULD BE USED OUTSIDE SWAGGER UI TO GENERATE REPORTS IN PDF.**
+ *     description: Retrieves sensor reports by user ID. **THIS ROUTE SHOULD BE USED OUTSIDE SWAGGER UI TO GENERATE PDF REPORTS. RENDER DOESN'T SUPPORT PDF GENERATION.**
  *     parameters:
  *       - in: path
  *         name: user_id
  *         required: true
  *         schema:
  *           type: string
- *           example: 123e4567-e89b-12d3-a456-426655440000
+ *           example: f47ac10b-58cc-4372-a567-0e02b2c3d476
  *         description: User ID
  *     responses:
  *       200:
@@ -856,19 +699,15 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: User not found
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: User not found
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Unexcepted error
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *               example:
+ *                 message: Unexcepted error
  */
